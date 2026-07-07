@@ -64,10 +64,47 @@ def daily_ohlc(commits):
     return rows
 
 
-def add_ma(rows, n, key):
+def add_ma(rows, n, key, field="c"):
     for i, r in enumerate(rows):
-        r[key] = (round(sum(x["c"] for x in rows[i - n + 1:i + 1]) / n, 1)
+        r[key] = (round(sum(x[field] for x in rows[i - n + 1:i + 1]) / n, 1)
                   if i >= n - 1 else None)
+
+
+def add_boll(rows, n=20, k=2):
+    """布林带 BOLL(n,k)：中轨=SMA(n)，上下轨=±k·σ（总体标准差）。"""
+    for i, r in enumerate(rows):
+        if i < n - 1:
+            r["bu"] = r["bm"] = r["bl"] = None
+            continue
+        win = [x["c"] for x in rows[i - n + 1:i + 1]]
+        m = sum(win) / n
+        sd = (sum((v - m) ** 2 for v in win) / n) ** 0.5
+        r["bm"] = round(m, 2)
+        r["bu"] = round(m + k * sd, 2)
+        r["bl"] = round(max(0.0, m - k * sd), 2)  # 计数不为负，下轨贴地即可
+
+
+def add_rsi(rows, n, key):
+    """Wilder RSI(n)。全涨→100，全跌→0。"""
+    ag = al = 0.0
+    for i, r in enumerate(rows):
+        if i == 0:
+            r[key] = None
+            continue
+        ch = r["c"] - rows[i - 1]["c"]
+        g, l = max(ch, 0), max(-ch, 0)
+        if i <= n:
+            ag += g
+            al += l
+            if i < n:
+                r[key] = None
+                continue
+            ag /= n
+            al /= n
+        else:
+            ag = (ag * (n - 1) + g) / n
+            al = (al * (n - 1) + l) / n
+        r[key] = round(100 - 100 / (1 + ag / al), 1) if al else 100.0
 
 
 def github_daily(user):
@@ -260,29 +297,39 @@ def selftest():
         {"2026-01-05": 120, "2026-01-07": 30}, "2026-01-05")
     assert [(r["o"], r["c"], r["v"]) for r in lr] == [
         (0, 5, 120), (5, 9, 0), (9, 2, 30)]
-    zero_v = [{"d": "2026-03-01", "o": 0, "h": 2, "l": 0, "c": 2, "v": 0,
-               "ma5": None, "ma10": None}]
-    assert "<svg" in render_svg(zero_v, "light", "t", "g", "m", "u", "d", "x")
-    fake = [{"d": f"2026-02-{i:02d}", "o": i, "h": i + 2, "l": max(0, i - 1),
-             "c": i + 1, "v": i + 1} for i in range(1, 13)]
-    add_ma(fake, 5, "ma5")
-    add_ma(fake, 10, "ma10")
+    # 指标：单调上涨 RSI=100；常数序列 BOLL 三轨重合
+    up_rows = [{"c": i, "v": 1} for i in range(1, 30)]
+    add_rsi(up_rows, 6, "rsi6")
+    assert up_rows[-1]["rsi6"] == 100.0 and up_rows[3]["rsi6"] is None
+    flat = [{"c": 7, "v": 1} for _ in range(25)]
+    add_boll(flat)
+    assert (flat[-1]["bu"], flat[-1]["bm"], flat[-1]["bl"]) == (7, 7, 7)
+    T = dict(title="t", tag="g", meta="m", up="u", down="d",
+             vol_word="VOL", vol_unit="x")
+    zero_v = [{"d": "2026-03-01", "o": 0, "h": 2, "l": 0, "c": 2, "v": 0}]
+    add_indicators(zero_v)
+    assert "<svg" in render_svg(zero_v, "light", T)
+    fake = [{"d": f"2026-{2 + i // 28:02d}-{i % 28 + 1:02d}", "o": i,
+             "h": i + 2, "l": max(0, i - 1), "c": i + 1, "v": i + 1}
+            for i in range(1, 60)]
+    add_indicators(fake)
     for theme in ("light", "dark"):
-        svg = render_svg(fake, theme, "t", "tag", "meta", "rise", "fall", "c")
+        svg = render_svg(fake, theme, T)
         assert svg.startswith("<svg") and svg.endswith("</svg>")
-        assert svg.count("<rect") >= 12 and svg.count("<polyline") == 2
+        assert svg.count("<rect") >= 60 and svg.count("<polyline") >= 6
     print("selftest OK")
 
 
 # ---------- 静态 SVG（GitHub profile README 不能跑 JS） ----------
 
+# 雪球风格三指标线：l1=橙(BOLL上轨/RSI6/MA5)、l2=蓝(中轨/RSI12/MA10)、l3=紫(下轨/RSI24)
 SVG_PAL = {
     "light": dict(ink="#0b0b0b", ink2="#52514e", muted="#898781",
                   grid="#e1e0d9", axis="#c3c2b7", up="#e34948", down="#008300",
-                  ma5="#2a78d6", ma10="#4a3aa7"),
+                  l1="#eda100", l2="#2a78d6", l3="#e87ba4"),
     "dark":  dict(ink="#ffffff", ink2="#c3c2b7", muted="#898781",
                   grid="#2c2c2a", axis="#383835", up="#e66767", down="#008300",
-                  ma5="#3987e5", ma10="#9085e9"),
+                  l1="#c98500", l2="#3987e5", l3="#d55181"),
 }
 
 SVG_STR = {
@@ -291,7 +338,7 @@ SVG_STR = {
         tag_repo="daily · file changes",
         tag_commits="daily · commits, volume = contributions",
         tag_lines="daily · contributions, volume = lines changed",
-        up="rise", down="fall",
+        up="rise", down="fall", vol_word="VOL",
         vol_github="contrib", vol_repo="commits", vol_commits="contrib",
         vol_lines="lines",
         meta_github="last {m} active days · {total} contributions since {first} · updated {today}",
@@ -302,7 +349,7 @@ SVG_STR = {
         tag_github="日K · GitHub 贡献", tag_repo="日K · 文件修改事项",
         tag_commits="日K · Commit（量柱=总贡献）",
         tag_lines="日K · 贡献（量柱=代码行数）",
-        up="涨", down="跌",
+        up="涨", down="跌", vol_word="成交",
         vol_github="贡献", vol_repo="提交", vol_commits="贡献", vol_lines="行",
         meta_github="近 {m} 个活跃日 · 自 {first} 累计贡献 {total} 次 · 更新于 {today}",
         meta_repo="近 {m} 个活跃日 · 自 {first} 累计修改 {total} 项 · 更新于 {today}",
@@ -333,147 +380,214 @@ def _nice_ticks(lo, hi, n):
     return out
 
 
-def _round_top(x, y, w, h):
-    r = min(4, w / 2, h)
-    return (f"M{x:.1f},{y + h:.1f} L{x:.1f},{y + r:.1f} "
-            f"Q{x:.1f},{y:.1f} {x + r:.1f},{y:.1f} L{x + w - r:.1f},{y:.1f} "
-            f"Q{x + w:.1f},{y:.1f} {x + w:.1f},{y + r:.1f} "
-            f"L{x + w:.1f},{y + h:.1f} Z")
-
-
-def render_svg(rows, theme, title, tag, meta, up_lab, down_lab, vol_unit):
+def render_svg(rows, theme, t):
+    """雪球风格三窗格：价格(BOLL+蜡烛) / RSI(6,12,24) / 成交量(MA5/MA10)。"""
     p = SVG_PAL[theme]
-    W, H = 840, 380
-    padL, padR, padT, padB, gap = 8, 52, 56, 24, 14
-    volH = 56
+    W, H = 840, 552
+    padL = padR = 10
     plotW = W - padL - padR
-    priceH = H - padT - padB - volH - gap
+    pT, pB = 66, 318          # 价格窗格
+    rT, rB = 344, 420         # RSI 窗格
+    vT, vB = 446, 522         # 成交量窗格
     n = len(rows)
     step = plotW / n
-    cw = max(1.5, min(24, step * 0.62))
+    cw = max(1.5, min(24, step * 0.55))
     x = lambda i: padL + step * (i + 0.5)
+    last = rows[-1]
 
-    mas = [r[k] for r in rows for k in ("ma5", "ma10") if r.get(k) is not None]
-    lo = min(min(r["l"] for r in rows), min(mas, default=10 ** 9))
-    hi = max(max(r["h"] for r in rows), max(mas, default=0))
-    vpad = (hi - lo) * 0.06 or 1
+    bands = [r[k] for r in rows for k in ("bu", "bl") if r.get(k) is not None]
+    lo = min(min(r["l"] for r in rows), min(bands, default=10 ** 9))
+    hi = max(max(r["h"] for r in rows), max(bands, default=0))
+    vpad = (hi - lo) * 0.05 or 1
     lo = max(0, lo - vpad)
     hi += vpad
-    py = lambda v: padT + priceH - (v - lo) / (hi - lo) * priceH
-    v0 = padT + priceH + gap
-    maxv = max(r["v"] for r in rows) or 1  # 量柱可能全为 0（如无归属 commit）
-    vy = lambda v: v0 + volH - v / maxv * (volH - 4)
+    py = lambda v: pB - (v - lo) / (hi - lo) * (pB - pT)
+    ry = lambda v: rB - v / 100 * (rB - rT)
+    maxv = max(r["v"] for r in rows) or 1
+    vy = lambda v: vB - v / maxv * (vB - vT - 4)
 
     e = []
     A = e.append
+
+    def line(x1, y1, x2, y2, col, w=1.0, dash=None):
+        A(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" '
+          f'stroke="{col}" stroke-width="{w}"'
+          + (f' stroke-dasharray="{dash}"' if dash else "") + '/>')
+
+    def text(tx, ty, s, col, size=11.0, anchor="start", bold=False):
+        A(f'<text x="{tx:.1f}" y="{ty:.1f}" font-size="{size}" fill="{col}"'
+          + (' font-weight="650"' if bold else "")
+          + (f' text-anchor="{anchor}"' if anchor != "start" else "")
+          + f'>{html.escape(s)}</text>')
+
+    def hdr(y, parts):
+        cx = padL + 4
+        for s, col in parts:
+            text(cx, y, s, col)
+            cx += _tw(s, 11) + 10
+
+    def poly(pts_rows, key, yfn, col, w=1.5):
+        seg = []
+        for i, r in enumerate(pts_rows + [None]):
+            if r is None or r.get(key) is None:
+                if len(seg) > 1:
+                    A(f'<polyline points="{" ".join(seg)}" fill="none" '
+                      f'stroke="{col}" stroke-width="{w}" '
+                      f'stroke-linejoin="round" stroke-linecap="round"/>')
+                seg = []
+            else:
+                seg.append(f"{x(i):.1f},{yfn(r[key]):.1f}")
+
+    def val(v):
+        return "—" if v is None else _fmt(v)
+
     A(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
       f'width="{W}" height="{H}" '
       f'font-family="-apple-system,&#39;Segoe UI&#39;,system-ui,sans-serif" '
-      f'role="img" aria-label="{html.escape(title)} candlestick chart">')
-    # 标题行 + 副标题
-    A(f'<text x="{padL + 2}" y="20" font-size="15" font-weight="650" '
-      f'fill="{p["ink"]}">{html.escape(title)}</text>')
-    A(f'<text x="{padL + 6 + _tw(title, 15):.0f}" y="20" font-size="11.5" '
-      f'fill="{p["ink2"]}">{html.escape(tag)}</text>')
-    A(f'<text x="{padL + 2}" y="38" font-size="11" fill="{p["muted"]}">'
-      f'{html.escape(meta)}</text>')
-    # 图例（右对齐，从右往左排）
+      f'role="img" aria-label="{html.escape(t["title"])} candlestick chart">')
+    # 标题行 + 涨跌图例 + 副标题
+    text(padL + 4, 20, t["title"], p["ink"], 15, bold=True)
+    text(padL + 8 + _tw(t["title"], 15), 20, t["tag"], p["ink2"], 11.5)
     cx = W - 10
-    for text, kind in reversed([(up_lab, "up"), (down_lab, "down"),
-                                ("MA5", p["ma5"]), ("MA10", p["ma10"])]):
-        cx -= _tw(text, 11)
-        A(f'<text x="{cx:.0f}" y="20" font-size="11" fill="{p["ink2"]}">'
-          f'{html.escape(text)}</text>')
+    for s, kind in ((t["down"], "down"), (t["up"], "up")):
+        cx -= _tw(s, 11)
+        text(cx, 20, s, p["ink2"])
+        cx -= 15
         if kind == "up":
-            cx -= 15
-            A(f'<rect x="{cx:.0f}" y="10" width="9" height="12" rx="2.5" '
+            A(f'<rect x="{cx:.0f}" y="10" width="9" height="12" '
               f'fill="none" stroke="{p["up"]}" stroke-width="1.5"/>')
-        elif kind == "down":
-            cx -= 15
-            A(f'<rect x="{cx:.0f}" y="10" width="9" height="12" rx="2.5" '
-              f'fill="{p["down"]}"/>')
         else:
-            cx -= 17
-            A(f'<rect x="{cx:.0f}" y="14.5" width="13" height="2.5" rx="1" '
-              f'fill="{kind}"/>')
+            A(f'<rect x="{cx:.0f}" y="10" width="9" height="12" '
+              f'fill="{p["down"]}"/>')
         cx -= 16
-    # 网格与坐标
-    for t in _nice_ticks(lo, hi, 4):
-        if not lo <= t <= hi:
+    text(padL + 4, 38, t["meta"], p["muted"])
+
+    # ---- 窗格边框 + 月份竖网格线 + 底部时间轴 ----
+    for top, bot in ((pT, pB), (rT, rB), (vT, vB)):
+        A(f'<rect x="{padL}" y="{top}" width="{plotW}" height="{bot - top}" '
+          f'fill="none" stroke="{p["grid"]}"/>')
+    marks, prev_m = [], None
+    for i, r in enumerate(rows):
+        m = r["d"][:7]
+        if m != prev_m:
+            marks.append((i, m))
+            prev_m = m
+    if len(marks) >= 2:
+        lx = -100
+        for i, m in marks:
+            if i > 0:
+                bx = x(i) - step / 2
+                for top, bot in ((pT, pB), (rT, rB), (vT, vB)):
+                    line(bx, top, bx, bot, p["grid"])
+            tx = min(max(x(i), padL + 28), padL + plotW - 28)
+            if tx - lx >= 64:
+                text(tx, H - 6, m, p["muted"], anchor="middle")
+                lx = tx
+    else:
+        for i in range(0, n, max(1, math.ceil(n / 6))):
+            text(min(max(x(i), padL + 26), padL + plotW - 26), H - 6,
+                 rows[i]["d"][5:], p["muted"], anchor="middle")
+
+    # ---- 价格窗格：网格 + 贴轴刻度 + BOLL + 蜡烛 + 高低点标注 ----
+    hdr(58, [("BOLL(20,2)", p["ink2"]),
+             (f"UP:{val(last.get('bu'))}", p["l1"]),
+             (f"MID:{val(last.get('bm'))}", p["l2"]),
+             (f"LOW:{val(last.get('bl'))}", p["l3"])])
+    for g in _nice_ticks(lo, hi, 4):
+        if not lo <= g <= hi:
             continue
-        A(f'<line x1="{padL}" x2="{padL + plotW}" y1="{py(t):.1f}" '
-          f'y2="{py(t):.1f}" stroke="{p["grid"]}"/>')
-        A(f'<text x="{padL + plotW + 8}" y="{py(t) + 4:.1f}" font-size="11" '
-          f'fill="{p["muted"]}">{_fmt(t)}</text>')
-    A(f'<line x1="{padL}" x2="{padL + plotW}" y1="{v0 + volH:.1f}" '
-      f'y2="{v0 + volH:.1f}" stroke="{p["axis"]}"/>')
-    A(f'<text x="{padL + plotW + 8}" y="{vy(maxv) + 4:.1f}" font-size="11" '
-      f'fill="{p["muted"]}">{_fmt(maxv)}</text>')
-    A(f'<text x="{padL + plotW + 8}" y="{vy(maxv) + 16:.1f}" font-size="10" '
-      f'fill="{p["muted"]}">{html.escape(vol_unit)}</text>')
-    long = n > 1 and (date.fromisoformat(rows[-1]["d"])
-                      - date.fromisoformat(rows[0]["d"])).days > 200
-    prev_label = ""
-    for i in range(0, n, max(1, math.ceil(n / 6))):
-        label = rows[i]["d"][:7] if long else rows[i]["d"][5:]
-        if label == prev_label:
-            continue
-        prev_label = label
-        tx = min(max(x(i), padL + 26), padL + plotW - 26)
-        A(f'<text x="{tx:.1f}" y="{H - 8}" font-size="11" fill="{p["muted"]}" '
-          f'text-anchor="middle">{label}</text>')
-    # 蜡烛 + 量柱（影线分上下两段，空心烛体内不穿线）
-    wick_w = max(1, min(2, cw / 5))
+        line(padL, py(g), padL + plotW, py(g), p["grid"])
+        text(padL + 4, py(g) - 3, _fmt(g), p["muted"])
+    for key, col in (("bu", p["l1"]), ("bm", p["l2"]), ("bl", p["l3"])):
+        poly(rows, key, py, col)
+    wick_w = max(1, min(1.5, cw / 6))
     for i, r in enumerate(rows):
         up, down = r["c"] > r["o"], r["c"] < r["o"]
         col = p["up"] if up else p["down"] if down else p["muted"]
         X = x(i)
         top = py(max(r["o"], r["c"]))
-        hb = max(abs(py(r["o"]) - py(r["c"])), 1.5)
+        hb = max(abs(py(r["o"]) - py(r["c"])), 1.2)
         if py(r["h"]) < top - 0.5:
-            A(f'<line x1="{X:.1f}" x2="{X:.1f}" y1="{py(r["h"]):.1f}" '
-              f'y2="{top:.1f}" stroke="{col}" stroke-width="{wick_w:.1f}"/>')
+            line(X, py(r["h"]), X, top, col, wick_w)
         if py(r["l"]) > top + hb + 0.5:
-            A(f'<line x1="{X:.1f}" x2="{X:.1f}" y1="{top + hb:.1f}" '
-              f'y2="{py(r["l"]):.1f}" stroke="{col}" stroke-width="{wick_w:.1f}"/>')
-        body = (f'x="{X - cw / 2:.1f}" y="{top:.1f}" width="{cw:.1f}" '
-                f'height="{hb:.1f}" rx="{min(2, cw / 3):.1f}"')
-        A(f'<rect {body} fill="none" stroke="{col}" stroke-width="1.4"/>'
+            line(X, top + hb, X, py(r["l"]), col, wick_w)
+        body = (f'x="{X - cw / 2:.1f}" y="{top:.1f}" '
+                f'width="{cw:.1f}" height="{hb:.1f}"')
+        A(f'<rect {body} fill="none" stroke="{col}" stroke-width="1.3"/>'
           if up else f'<rect {body} fill="{col}"/>')
-        vh = v0 + volH - vy(r["v"])
-        d = _round_top(X - cw / 2, vy(r["v"]), cw, vh)
-        A(f'<path d="{d}" fill="none" stroke="{col}" stroke-width="1.2"/>'
-          if up else f'<path d="{d}" fill="{col}"/>')
-    # MA 线（None 处断开）
-    for key in ("ma10", "ma5"):
-        seg = []
-        for i, r in enumerate(rows + [None]):
-            if r is None or r.get(key) is None:
-                if len(seg) > 1:
-                    A(f'<polyline points="{" ".join(seg)}" fill="none" '
-                      f'stroke="{p[key]}" stroke-width="2" '
-                      f'stroke-linejoin="round" stroke-linecap="round"/>')
-                seg = []
-            else:
-                seg.append(f"{x(i):.1f},{py(r[key]):.1f}")
+    hi_i = max(range(n), key=lambda i: rows[i]["h"])
+    lo_i = min(range(n), key=lambda i: rows[i]["l"])
+    for i, v in ((hi_i, rows[hi_i]["h"]), (lo_i, rows[lo_i]["l"])):
+        Y = py(v)
+        right = x(i) > W / 2
+        ty = Y + 4
+        if ty > pB - 4:      # 贴底边时翻到点上方，避免越界撞副图表头
+            ty = Y - 6
+        elif ty < pT + 12:
+            ty = Y + 14
+        A(f'<circle cx="{x(i):.1f}" cy="{Y:.1f}" r="2" fill="{p["ink2"]}"/>')
+        line(x(i), Y, x(i) + (-8 if right else 8), Y, p["ink2"])
+        text(x(i) + (-11 if right else 11), ty, _fmt(v), p["ink2"],
+             anchor="end" if right else "start")
+
+    # ---- RSI 窗格 ----
+    hdr(336, [("RSI(6,12,24)", p["ink2"]),
+              (f"RSI6:{val(last.get('rsi6'))}", p["l1"]),
+              (f"RSI12:{val(last.get('rsi12'))}", p["l2"]),
+              (f"RSI24:{val(last.get('rsi24'))}", p["l3"])])
+    for g in (20, 50, 80):
+        line(padL, ry(g), padL + plotW, ry(g), p["grid"], dash="3 3")
+        if g >= 50:
+            text(padL + 4, ry(g) - 3, f"{g}.00", p["muted"], 10)
+    for key, col in (("rsi6", p["l1"]), ("rsi12", p["l2"]), ("rsi24", p["l3"])):
+        poly(rows, key, ry, col)
+
+    # ---- 成交量窗格 ----
+    hdr(438, [(f'{t["vol_word"]} {_fmt(last["v"])} {t["vol_unit"]}', p["ink2"]),
+              (f"MA5:{val(last.get('vma5'))}", p["l1"]),
+              (f"MA10:{val(last.get('vma10'))}", p["l2"])])
+    text(padL + 4, vT + 11, _fmt(maxv), p["muted"], 10)
+    for i, r in enumerate(rows):
+        up = r["c"] > r["o"]
+        col = p["up"] if up else p["down"] if r["c"] < r["o"] else p["muted"]
+        vh = vB - vy(r["v"])
+        if vh < 0.5:
+            continue
+        body = (f'x="{x(i) - cw / 2:.1f}" y="{vy(r["v"]):.1f}" '
+                f'width="{cw:.1f}" height="{vh:.1f}"')
+        A(f'<rect {body} fill="none" stroke="{col}" stroke-width="1.1"/>'
+          if up else f'<rect {body} fill="{col}"/>')
+    for key, col in (("vma10", p["l2"]), ("vma5", p["l1"])):
+        poly(rows, key, vy, col)
+
     A("</svg>")
     return "\n".join(e)
 
 
+def add_indicators(rows):
+    add_boll(rows)
+    for nn in (6, 12, 24):
+        add_rsi(rows, nn, f"rsi{nn}")
+    add_ma(rows, 5, "vma5", "v")
+    add_ma(rows, 10, "vma10", "v")
+
+
 def write_svgs(rows, outdir, kind, title, lang, days):
     L = SVG_STR[lang]
+    add_indicators(rows)
     sub = rows[-days:] if days > 0 else rows
     meta = L["meta_" + kind].format(
         m=len(sub), first=rows[0]["d"], today=date.today().isoformat(),
         total=f"{sum(r['c'] for r in rows):,}",
         wc=f"{sum(r['c'] for r in sub):,}", wv=f"{sum(r['v'] for r in sub):,}")
+    t = dict(title=title, tag=L["tag_" + kind], meta=meta,
+             up=L["up"], down=L["down"],
+             vol_word=L["vol_word"], vol_unit=L["vol_" + kind])
     outdir = Path(outdir)
     outdir.mkdir(parents=True, exist_ok=True)
     for theme in ("light", "dark"):
         (outdir / f"kline-{theme}.svg").write_text(
-            render_svg(sub, theme, title, L["tag_" + kind], meta,
-                       L["up"], L["down"], L["vol_" + kind]),
-            encoding="utf-8")
+            render_svg(sub, theme, t), encoding="utf-8")
     print(f"已生成 {outdir}/kline-light.svg + kline-dark.svg")
 
 
@@ -508,9 +622,9 @@ def main():
                 acts = [d for d, c in cal if c > 0]
                 if not acts:
                     sys.exit("该账号没有任何贡献记录")
-                # SVG 只画最近 days 根蜡烛（+10 根 MA 预热），深数据只需抓到那里
-                need = (acts[-(args.days + 10)]
-                        if args.svg and 0 < args.days + 10 < len(acts)
+                # SVG 只画最近 days 根蜡烛（+30 根指标预热），深数据只需抓到那里
+                need = (acts[-(args.days + 30)]
+                        if args.svg and 0 < args.days + 30 < len(acts)
                         else acts[0])
                 if args.metric == "commits":
                     cmap, cov = github_commit_daily(

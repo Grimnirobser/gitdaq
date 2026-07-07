@@ -1,9 +1,11 @@
-# github-kline 📈
+# gitdaq 📈
 
-Show your GitHub activity as a **stock candlestick (K-line) chart** — right on
-your profile README. Red means you "rallied" (more contributions than
-yesterday), green means you "sold off". Chinese A-share color convention,
-MA5/MA10 lines, volume pane, the whole trading-terminal look.
+**Your GitHub contributions, traded like a stock.**
+
+gitdaq renders your GitHub activity as a **candlestick (K-line) chart** — right
+on your profile README. Red means you "rallied" (more than yesterday), green
+means you "sold off". Chinese A-share color convention, MA5/MA10 lines, volume
+pane, the whole trading-terminal look.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Grimnirobser/Grimnirobser/main/kline/kline-dark.svg">
@@ -31,7 +33,7 @@ contribution calendar by this very action.*
        runs-on: ubuntu-latest
        steps:
          - uses: actions/checkout@v4
-         - uses: Grimnirobser/github-kline@v1
+         - uses: Grimnirobser/gitdaq@v1
          - name: Commit chart
            run: |
              git config user.name "github-actions[bot]"

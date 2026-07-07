@@ -1,7 +1,7 @@
-name: "github-kline"
+name: "gitdaq"
 description: >-
-  Render your GitHub contribution activity as a stock candlestick (K-line)
-  chart SVG for your profile README — light + dark themes.
+  Your GitHub contributions, traded like a stock — candlestick (K-line)
+  chart SVG for your profile README, light + dark themes.
 author: "Grimnirobser"
 branding:
   icon: "trending-up"

@@ -108,6 +108,53 @@ def daily_rows(daily):
     return rows
 
 
+def github_commit_daily(user, back_to):
+    """每日 commit 数（GitHub 贡献口径）。从今天按季度往回抓到 back_to。
+
+    季度窗口 ≤92 天，contributions(first:92) 永不截断，无需分页。
+    返回 ({iso日期: commit数}, 覆盖起始日)。"""
+    def gh(*a):
+        return subprocess.run(["gh", *a], capture_output=True, text=True,
+                              check=True).stdout
+    q = ("query($login:String!,$from:DateTime!,$to:DateTime!){"
+         "user(login:$login){contributionsCollection(from:$from,to:$to){"
+         "commitContributionsByRepository(maxRepositories:100){"
+         "contributions(first:92){nodes{occurredAt commitCount}}}}}}")
+    counts, start = {}, None
+    end = date.today()
+    cap = 40  # ponytail: 最多回溯约10年，防 GraphQL 配额爆炸；更久远的历史不画
+    while cap and end >= back_to:
+        begin = max(end - timedelta(days=91), back_to)
+        out = json.loads(gh("api", "graphql", "-f", f"query={q}",
+                            "-f", f"login={user}",
+                            "-f", f"from={begin.isoformat()}T00:00:00Z",
+                            "-f", f"to={end.isoformat()}T23:59:59Z"))
+        col = out["data"]["user"]["contributionsCollection"]
+        for repo in col["commitContributionsByRepository"]:
+            for nd in repo["contributions"]["nodes"]:
+                ds = nd["occurredAt"][:10]
+                counts[ds] = counts.get(ds, 0) + nd["commitCount"]
+        start = begin
+        end = begin - timedelta(days=1)
+        cap -= 1
+    return counts, (start or end).isoformat()
+
+
+def commit_rows(cal, commits, cov_start):
+    """蜡烛 = 每日 commit 数，量柱 = 当日总贡献。活跃日 = 贡献>0 且在覆盖期内。"""
+    rows = []
+    for ds, contrib in cal:
+        if contrib <= 0 or ds < cov_start:
+            continue
+        c = commits.get(ds, 0)
+        prev = (date.fromisoformat(ds) - timedelta(days=1)).isoformat()
+        # ponytail: 覆盖期第一天的 o 可能查不到昨日 commit，按 0 处理；窗口裁剪后不可见
+        o = commits.get(prev, 0)
+        rows.append({"d": ds, "o": o, "h": max(o, c), "l": min(o, c),
+                     "c": c, "v": contrib})
+    return rows
+
+
 def selftest():
     ts = lambda d, h: datetime(2026, 1, d, h).timestamp()
     commits = [(ts(5, 10), 10), (ts(6, 1), 4), (ts(9, 12), 3)]
@@ -125,6 +172,10 @@ def selftest():
     gh = daily_rows([("2026-01-05", 0), ("2026-01-06", 8), ("2026-01-07", 3)])
     assert [(r["d"], r["o"], r["h"], r["l"], r["c"]) for r in gh] == [
         ("2026-01-06", 0, 8, 0, 8), ("2026-01-07", 8, 8, 3, 3)]
+    cr = commit_rows([("2026-01-05", 5), ("2026-01-06", 9), ("2026-01-07", 2)],
+                     {"2026-01-05": 3, "2026-01-06": 7}, "2026-01-05")
+    assert [(r["o"], r["h"], r["l"], r["c"], r["v"]) for r in cr] == [
+        (0, 3, 0, 3, 5), (3, 7, 3, 7, 9), (7, 7, 0, 0, 2)]
     fake = [{"d": f"2026-02-{i:02d}", "o": i, "h": i + 2, "l": max(0, i - 1),
              "c": i + 1, "v": i + 1} for i in range(1, 13)]
     add_ma(fake, 5, "ma5")
@@ -148,15 +199,23 @@ SVG_PAL = {
 }
 
 SVG_STR = {
-    "en": dict(tag_github="daily · GitHub contributions",
-               tag_repo="daily · file changes",
-               up="rise", down="fall", vol_github="contrib", vol_repo="commits",
-               meta="last {m} active days · {total} {what} since {first} · updated {today}",
-               what_github="contributions", what_repo="file changes"),
-    "zh": dict(tag_github="日K · GitHub 贡献", tag_repo="日K · 文件修改事项",
-               up="涨", down="跌", vol_github="贡献", vol_repo="提交",
-               meta="近 {m} 个活跃日 · 自 {first} 累计 {total} {what} · 更新于 {today}",
-               what_github="次贡献", what_repo="项修改"),
+    "en": dict(
+        tag_github="daily · GitHub contributions",
+        tag_repo="daily · file changes",
+        tag_commits="daily · commits, volume = contributions",
+        up="rise", down="fall",
+        vol_github="contrib", vol_repo="commits", vol_commits="contrib",
+        meta_github="last {m} active days · {total} contributions since {first} · updated {today}",
+        meta_repo="last {m} active days · {total} file changes since {first} · updated {today}",
+        meta_commits="last {m} active days · {wc} commits · {wv} contributions · updated {today}"),
+    "zh": dict(
+        tag_github="日K · GitHub 贡献", tag_repo="日K · 文件修改事项",
+        tag_commits="日K · Commit（量柱=总贡献）",
+        up="涨", down="跌",
+        vol_github="贡献", vol_repo="提交", vol_commits="贡献",
+        meta_github="近 {m} 个活跃日 · 自 {first} 累计贡献 {total} 次 · 更新于 {today}",
+        meta_repo="近 {m} 个活跃日 · 自 {first} 累计修改 {total} 项 · 更新于 {today}",
+        meta_commits="近 {m} 个活跃日 · commit {wc} 次 · 贡献 {wv} 次 · 更新于 {today}"),
 }
 
 
@@ -311,10 +370,11 @@ def render_svg(rows, theme, title, tag, meta, up_lab, down_lab, vol_unit):
 
 def write_svgs(rows, outdir, kind, title, lang, days):
     L = SVG_STR[lang]
-    total = sum(r["c"] for r in rows)
     sub = rows[-days:] if days > 0 else rows
-    meta = L["meta"].format(m=len(sub), total=f"{total:,}", what=L["what_" + kind],
-                            first=rows[0]["d"], today=date.today().isoformat())
+    meta = L["meta_" + kind].format(
+        m=len(sub), first=rows[0]["d"], today=date.today().isoformat(),
+        total=f"{sum(r['c'] for r in rows):,}",
+        wc=f"{sum(r['c'] for r in sub):,}", wv=f"{sum(r['v'] for r in sub):,}")
     outdir = Path(outdir)
     outdir.mkdir(parents=True, exist_ok=True)
     for theme in ("light", "dark"):
@@ -330,6 +390,10 @@ def main():
     ap.add_argument("repo", nargs="?", default=".", help="git 仓库路径（默认当前目录）")
     ap.add_argument("--github", metavar="USER",
                     help="改用 GitHub 贡献日历（个人主页同款数据），需已登录 gh CLI")
+    ap.add_argument("--metric", choices=("contributions", "commits"),
+                    default="contributions",
+                    help="--github 模式指标：commits=蜡烛为每日commit数、"
+                         "量柱为当日总贡献（默认 contributions）")
     ap.add_argument("-o", "--out", help="输出 HTML 路径（默认 ./<名字>-kline.html）")
     ap.add_argument("--svg", metavar="DIR",
                     help="改为输出静态 SVG（kline-light.svg + kline-dark.svg），"
@@ -347,18 +411,40 @@ def main():
 
     if args.github:
         try:
-            rows = daily_rows(github_daily(args.github))
+            cal = github_daily(args.github)
+            if args.metric == "commits":
+                acts = [d for d, c in cal if c > 0]
+                if not acts:
+                    sys.exit("该账号没有任何贡献记录")
+                # SVG 只画最近 days 根蜡烛（+10 根 MA 预热），commit 数据只需抓到那里
+                need = (acts[-(args.days + 10)]
+                        if args.svg and 0 < args.days + 10 < len(acts)
+                        else acts[0])
+                cmap, cov = github_commit_daily(
+                    args.github, date.fromisoformat(need))
+                rows = commit_rows(cal, cmap, cov)
+            else:
+                rows = daily_rows(cal)
         except FileNotFoundError:
             sys.exit("需要 GitHub CLI：brew install gh && gh auth login")
         except subprocess.CalledProcessError as e:
             sys.exit(f"gh 失败: {e.stderr.strip()}")
         if not rows:
             sys.exit("该账号没有任何贡献记录")
-        title, tag, volunit = args.github, "日K · GitHub 贡献", "贡献"
-        explain = ("收盘 = 当日贡献数 · 开盘 = 昨日贡献数 · "
-                   "贡献日历为日粒度，无影线 · 无贡献日休市")
-        meta = (f"{len(rows)} 个活跃日 · 累计贡献 {sum(r['c'] for r in rows)} 次 · "
-                f"{rows[0]['d']} ~ {rows[-1]['d']}")
+        title = args.github
+        if args.metric == "commits":
+            kind, tag, volunit = "commits", "日K · Commit（量柱=总贡献）", "贡献"
+            explain = ("收盘 = 当日 commit 数 · 开盘 = 昨日 commit 数 · "
+                       "量柱 = 当日总贡献（commit+PR+issue+review）· 无贡献日休市")
+            meta = (f"{len(rows)} 个活跃日 · commit {sum(r['c'] for r in rows)} 次 · "
+                    f"贡献 {sum(r['v'] for r in rows)} 次 · "
+                    f"{rows[0]['d']} ~ {rows[-1]['d']}")
+        else:
+            kind, tag, volunit = "github", "日K · GitHub 贡献", "贡献"
+            explain = ("收盘 = 当日贡献数 · 开盘 = 昨日贡献数 · "
+                       "贡献日历为日粒度，无影线 · 无贡献日休市")
+            meta = (f"{len(rows)} 个活跃日 · 累计贡献 {sum(r['c'] for r in rows)} 次 · "
+                    f"{rows[0]['d']} ~ {rows[-1]['d']}")
         name = f"{args.github}-github-kline.html"
     else:
         repo = Path(args.repo).resolve()
@@ -369,6 +455,7 @@ def main():
         if not commits:
             sys.exit("仓库没有可统计的提交")
         rows = daily_ohlc(commits)
+        kind = "repo"
         title, tag, volunit = repo.name, "日K · 文件修改事项", "提交"
         explain = ("收盘 = 当日修改事项数 · 开盘 = 昨日总量 · "
                    "高/低 = 24h 滚动窗口日内极值 · 无提交日休市")
@@ -381,8 +468,7 @@ def main():
     add_ma(rows, 10, "ma10")
 
     if args.svg:
-        write_svgs(rows, args.svg, "github" if args.github else "repo",
-                   title, args.lang, args.days)
+        write_svgs(rows, args.svg, kind, title, args.lang, args.days)
         return
 
     out = Path(args.out) if args.out else Path.cwd() / name

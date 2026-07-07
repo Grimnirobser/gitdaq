@@ -17,6 +17,11 @@ inputs:
       token sees public contributions; pass a PAT with read:user to include
       private contribution counts.
     default: ${{ github.token }}
+  metric:
+    description: >-
+      contributions (candles = daily total contributions) or commits
+      (candles = daily commits, volume bars = total contributions)
+    default: "contributions"
   days:
     description: "Number of recent active days to plot (0 = all)"
     default: "60"
@@ -36,6 +41,7 @@ runs:
       run: |
         python3 "${{ github.action_path }}/kline.py" \
           --github "${{ inputs.user }}" \
+          --metric "${{ inputs.metric }}" \
           --svg "${{ inputs.output_dir }}" \
           --days "${{ inputs.days }}" \
           --lang "${{ inputs.lang }}"

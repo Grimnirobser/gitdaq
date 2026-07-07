@@ -58,6 +58,7 @@ contribution calendar by this very action.*
 |---|---|---|
 | `user` | repo owner | GitHub username to chart |
 | `github_token` | `github.token` | Default token sees **public** contributions; pass a PAT with `read:user` to include private counts |
+| `metric` | `contributions` | `contributions`: candles = daily total contributions. `commits`: candles = daily **commits**, volume bars = total contributions |
 | `days` | `60` | Recent active days to plot (`0` = entire history) |
 | `lang` | `en` | Chart labels: `en` or `zh` |
 | `output_dir` | `kline` | Where `kline-light.svg` / `kline-dark.svg` are written |
@@ -80,6 +81,11 @@ The calendar is day-granular, so profile candles have no wicks — we'd rather
 draw no wick than a fabricated one. Up candles are hollow, down candles are
 filled, so direction never relies on color alone (red-green colorblind safe;
 palette CVD-validated).
+
+With `metric: commits` the candles switch to **daily commits** (GitHub
+attribution rules: default-branch commits, linked author email) while the
+volume bars keep showing total contributions — commit price action on top,
+overall market activity below.
 
 ## Local analysis mode (interactive HTML)
 

@@ -1,0 +1,41 @@
+name: "github-kline"
+description: >-
+  Render your GitHub contribution activity as a stock candlestick (K-line)
+  chart SVG for your profile README — light + dark themes.
+author: "Grimnirobser"
+branding:
+  icon: "trending-up"
+  color: "red"
+
+inputs:
+  user:
+    description: "GitHub username to chart (defaults to the repository owner)"
+    default: ${{ github.repository_owner }}
+  github_token:
+    description: >-
+      Token used for the GraphQL contributions query. The default workflow
+      token sees public contributions; pass a PAT with read:user to include
+      private contribution counts.
+    default: ${{ github.token }}
+  days:
+    description: "Number of recent active days to plot (0 = all)"
+    default: "60"
+  lang:
+    description: "Chart label language: en or zh"
+    default: "en"
+  output_dir:
+    description: "Directory to write kline-light.svg and kline-dark.svg into"
+    default: "kline"
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github_token }}
+      run: |
+        python3 "${{ github.action_path }}/kline.py" \
+          --github "${{ inputs.user }}" \
+          --svg "${{ inputs.output_dir }}" \
+          --days "${{ inputs.days }}" \
+          --lang "${{ inputs.lang }}"

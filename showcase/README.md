@@ -2,9 +2,9 @@
 
 What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-starred repositories on the exchange, each rendered as a candlestick chart by [gitdaq](../README.md). Reconstituted daily by [`showcase.yml`](../.github/workflows/showcase.yml).
 
-**^GDQ20 6,532,453** (sum of constituents' stars) · close 2026-07-07 · candles = daily commits on the default branch (all authors) · volume = lines changed · red up, green down (A-share convention).
+**^GDQ20 6,532,456** (sum of constituents' stars) · close 2026-07-07 · candles = daily commits on the default branch (all authors) · volume = lines changed · red up, green down (A-share convention).
 
-### 01 · [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) — ★ 523,088
+### 01 · [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) — ★ 523,089
 
 > Master programming by recreating your favorite technologies from scratch. · `Markdown`
 
@@ -31,7 +31,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="freeCodeCamp/freeCodeCamp daily commits as a candlestick chart" src="freeCodeCamp-freeCodeCamp/kline-light.svg">
 </picture>
 
-### 04 · [public-apis/public-apis](https://github.com/public-apis/public-apis) — ★ 447,334
+### 04 · [public-apis/public-apis](https://github.com/public-apis/public-apis) — ★ 447,335
 
 > A collective list of free APIs · `Python`
 
@@ -175,7 +175,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="TheAlgorithms/Python daily commits as a candlestick chart" src="TheAlgorithms-Python/kline-light.svg">
 </picture>
 
-### 20 · [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) — ★ 210,540
+### 20 · [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) — ★ 210,541
 
 > The agent that grows with you · `Python`
 

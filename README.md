@@ -139,13 +139,13 @@ reconstituted and re-charted daily by
 [showcase/](showcase/README.md).
 
 <!-- GDQ20:START -->
-<!-- GDQ20:v6532453 -->
-**^GDQ20 &nbsp;6,532,453** · close 2026-07-07 · [constituent detail →](showcase/README.md)
+<!-- GDQ20:v6532456 -->
+**^GDQ20 &nbsp;6,532,456** ▲ +3 (+0.00%) · close 2026-07-07 · [constituent detail →](showcase/README.md)
 
 <table>
 <tr>
 <td valign="top" width="50%">
-<b>01 · <a href="https://github.com/codecrafters-io/build-your-own-x">codecrafters-io/build-your-own-x</a></b> — ★ 523,088<br>
+<b>01 · <a href="https://github.com/codecrafters-io/build-your-own-x">codecrafters-io/build-your-own-x</a></b> — ★ 523,089<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/codecrafters-io-build-your-own-x/kline-dark.svg">
   <img alt="codecrafters-io/build-your-own-x daily commits as a candlestick chart" src="showcase/codecrafters-io-build-your-own-x/kline-light.svg">
@@ -168,7 +168,7 @@ reconstituted and re-charted daily by
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>04 · <a href="https://github.com/public-apis/public-apis">public-apis/public-apis</a></b> — ★ 447,334<br>
+<b>04 · <a href="https://github.com/public-apis/public-apis">public-apis/public-apis</a></b> — ★ 447,335<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/public-apis-public-apis/kline-dark.svg">
   <img alt="public-apis/public-apis daily commits as a candlestick chart" src="showcase/public-apis-public-apis/kline-light.svg">
@@ -296,7 +296,7 @@ reconstituted and re-charted daily by
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>20 · <a href="https://github.com/NousResearch/hermes-agent">NousResearch/hermes-agent</a></b> — ★ 210,540<br>
+<b>20 · <a href="https://github.com/NousResearch/hermes-agent">NousResearch/hermes-agent</a></b> — ★ 210,541<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/NousResearch-hermes-agent/kline-dark.svg">
   <img alt="NousResearch/hermes-agent daily commits as a candlestick chart" src="showcase/NousResearch-hermes-agent/kline-light.svg">

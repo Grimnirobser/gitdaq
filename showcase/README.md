@@ -2,9 +2,9 @@
 
 The 20 most-starred repositories on GitHub, each rendered as a candlestick chart by [gitdaq](../README.md). Regenerated daily by [`showcase.yml`](../.github/workflows/showcase.yml).
 
-**Index: ★ 6,532,415** (sum of all 20) · close 2026-07-07 · candles = daily commits on the default branch (all authors) · volume = lines changed · red up, green down (A-share convention).
+**Index: ★ 6,532,434** (sum of all 20) · close 2026-07-07 · candles = daily commits on the default branch (all authors) · volume = lines changed · red up, green down (A-share convention).
 
-### 01 · [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) — ★ 523,089
+### 01 · [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) — ★ 523,088
 
 > Master programming by recreating your favorite technologies from scratch. · `Markdown`
 
@@ -13,7 +13,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="codecrafters-io/build-your-own-x daily commits as a candlestick chart" src="codecrafters-io-build-your-own-x/kline-light.svg">
 </picture>
 
-### 02 · [sindresorhus/awesome](https://github.com/sindresorhus/awesome) — ★ 482,477
+### 02 · [sindresorhus/awesome](https://github.com/sindresorhus/awesome) — ★ 482,482
 
 > 😎 Awesome lists about all kinds of interesting topics
 
@@ -31,7 +31,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="freeCodeCamp/freeCodeCamp daily commits as a candlestick chart" src="freeCodeCamp-freeCodeCamp/kline-light.svg">
 </picture>
 
-### 04 · [public-apis/public-apis](https://github.com/public-apis/public-apis) — ★ 447,333
+### 04 · [public-apis/public-apis](https://github.com/public-apis/public-apis) — ★ 447,334
 
 > A collective list of free APIs · `Python`
 
@@ -49,7 +49,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="EbookFoundation/free-programming-books daily commits as a candlestick chart" src="EbookFoundation-free-programming-books/kline-light.svg">
 </picture>
 
-### 06 · [openclaw/openclaw](https://github.com/openclaw/openclaw) — ★ 382,002
+### 06 · [openclaw/openclaw](https://github.com/openclaw/openclaw) — ★ 382,003
 
 > Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞  · `TypeScript`
 
@@ -67,7 +67,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="nilbuild/developer-roadmap daily commits as a candlestick chart" src="nilbuild-developer-roadmap/kline-light.svg">
 </picture>
 
-### 08 · [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) — ★ 356,461
+### 08 · [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) — ★ 356,462
 
 > Learn how to design large-scale systems. Prep for the system design interview.  Includes Anki flashcards. · `Python`
 
@@ -76,7 +76,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="donnemartin/system-design-primer daily commits as a candlestick chart" src="donnemartin-system-design-primer/kline-light.svg">
 </picture>
 
-### 09 · [jwasham/coding-interview-university](https://github.com/jwasham/coding-interview-university) — ★ 355,329
+### 09 · [jwasham/coding-interview-university](https://github.com/jwasham/coding-interview-university) — ★ 355,330
 
 > A complete computer science study plan to become a software engineer.
 
@@ -85,7 +85,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="jwasham/coding-interview-university daily commits as a candlestick chart" src="jwasham-coding-interview-university/kline-light.svg">
 </picture>
 
-### 10 · [vinta/awesome-python](https://github.com/vinta/awesome-python) — ★ 306,744
+### 10 · [vinta/awesome-python](https://github.com/vinta/awesome-python) — ★ 306,745
 
 > An opinionated list of Python frameworks, libraries, tools, and resources · `Python`
 
@@ -121,7 +121,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="practical-tutorials/project-based-learning daily commits as a candlestick chart" src="practical-tutorials-project-based-learning/kline-light.svg">
 </picture>
 
-### 14 · [obra/superpowers](https://github.com/obra/superpowers) — ★ 248,006
+### 14 · [obra/superpowers](https://github.com/obra/superpowers) — ★ 248,014
 
 > An agentic skills framework &amp; software development methodology that works. · `Shell`
 
@@ -157,7 +157,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="trimstray/the-book-of-secret-knowledge daily commits as a candlestick chart" src="trimstray-the-book-of-secret-knowledge/kline-light.svg">
 </picture>
 
-### 18 · [affaan-m/ECC](https://github.com/affaan-m/ECC) — ★ 226,746
+### 18 · [affaan-m/ECC](https://github.com/affaan-m/ECC) — ★ 226,747
 
 > The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond. · `JavaScript`
 
@@ -175,7 +175,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="TheAlgorithms/Python daily commits as a candlestick chart" src="TheAlgorithms-Python/kline-light.svg">
 </picture>
 
-### 20 · [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) — ★ 210,536
+### 20 · [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) — ★ 210,537
 
 > The agent that grows with you · `Python`
 

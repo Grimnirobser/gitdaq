@@ -14,6 +14,7 @@ import json
 import math
 import subprocess
 import sys
+import time
 import webbrowser
 from datetime import date, datetime, time as dtime, timedelta
 from pathlib import Path
@@ -280,6 +281,105 @@ def github_repo_daily(full, need_days):
     return cmap, lmap, cov
 
 
+STAR_PAGE_CAP = 60    # ponytail: 回填只管开局宽度；巨仓库深分页被限流，翻多少算多少，
+FORK_PAGE_CAP = 30    # 之后每日差分自动加宽。fork 流量约为 star 的 5~10%
+
+
+def github_repo_stars_daily(full, need_days, cache_file):
+    """仓库维度·人气口径：每日新增 star（蜡烛）与新增 fork（量柱），JSON 缓存。
+
+    日常模式（缓存已有总量基线）：只查 stargazerCount/forkCount，与上次
+    基线做差分记到今天——一次查询零分页，CI 里绝对稳。差分是净增
+    （加星减取消），负增之日记 0 视同休市。
+    回填模式（首次）：分页翻历史事件建近段日史。stargazer 深分页会被
+    GitHub 二级限流打断（页间限速+耐心重试仍可能到不了底），翻到哪里
+    floor 就定在哪里，如实截断，之后靠每日差分自然延展。回填当日只有
+    半日事件，次日差分补齐。"""
+    def gh(*a, waits=(2, 5, 20, 60)):
+        for wait in (*waits, 0):
+            r = subprocess.run(["gh", *a], capture_output=True, text=True)
+            if r.returncode == 0:
+                return r.stdout
+            if not wait:
+                raise subprocess.CalledProcessError(r.returncode, r.args,
+                                                    r.stdout, r.stderr)
+            time.sleep(wait)
+        raise AssertionError  # unreachable
+
+    owner, name = full.split("/", 1)
+    cache = (json.loads(cache_file.read_text())
+             if cache_file.exists() else {"stars": {}, "forks": {}})
+    today = date.today().isoformat()
+    var = ["-f", f"owner={owner}", "-f", f"name={name}"]
+
+    def totals():
+        out = json.loads(gh(
+            "api", "graphql", "-f",
+            "query=query($owner:String!,$name:String!){repository("
+            "owner:$owner,name:$name){stargazerCount forkCount}}", *var))
+        repo = (out.get("data") or {}).get("repository")
+        return (repo["stargazerCount"], repo["forkCount"]) if repo else None
+
+    if "total_stars" in cache:            # 日常：总量差分
+        t = totals()
+        if t:
+            for key, tot, new in (("stars", "total_stars", t[0]),
+                                  ("forks", "total_forks", t[1])):
+                gain = max(0, new - cache[tot])
+                if gain:                  # 距上次观测的净增全记到今天
+                    cache[key][today] = cache[key].get(today, 0) + gain
+                cache[tot] = new
+    else:                                 # 首次：分页回填
+        def walk(conn, field, sel, key, counts, cap, stop_date, need=0):
+            """从最新事件往回按日计数；返回是否翻尽（到达仓库诞生）。"""
+            q = ("query($owner:String!,$name:String!,$cursor:String){"
+                 "repository(owner:$owner,name:$name){"
+                 + conn + "(first:100,after:$cursor,orderBy:{field:" + field
+                 + ",direction:DESC}){pageInfo{hasNextPage endCursor}"
+                 + sel + "}}}")
+            cursor = None
+            for _ in range(cap):
+                argv = ["api", "graphql", "-f", f"query={q}", *var]
+                if cursor:
+                    argv += ["-f", f"cursor={cursor}"]
+                try:                      # 分页快败：截断优于苦等
+                    out = json.loads(gh(*argv, waits=(2, 5)))
+                except subprocess.CalledProcessError:
+                    return False          # 限流打不穿 → 截断到此
+                page = ((out.get("data") or {}).get("repository")
+                        or {}).get(conn)
+                if not page:
+                    return False
+                for it in (page.get("edges") or page.get("nodes") or []):
+                    ds = it[key][:10]
+                    if stop_date and ds < stop_date:
+                        return False      # 已够旧
+                    counts[ds] = counts.get(ds, 0) + 1
+                if not page["pageInfo"]["hasNextPage"]:
+                    return True
+                if need and len(counts) > need:
+                    return False
+                cursor = page["pageInfo"]["endCursor"]
+                time.sleep(0.4)           # 页间限速，少惹二级限流
+            return False                  # 页数上限
+
+        done = walk("stargazers", "STARRED_AT", "edges{starredAt}",
+                    "starredAt", cache["stars"], STAR_PAGE_CAP, None,
+                    need=need_days)
+        if not cache["stars"]:
+            return {}, {}, None
+        if not done and len(cache["stars"]) > 1:
+            cache["stars"].pop(min(cache["stars"]))  # 最老一天只有半天 → 丢弃
+        cache["floor"] = min(cache["stars"])
+        walk("forks", "CREATED_AT", "nodes{createdAt}", "createdAt",
+             cache["forks"], FORK_PAGE_CAP, cache["floor"])
+        t = totals()
+        if t:                             # 差分基线，明天起走日常模式
+            cache["total_stars"], cache["total_forks"] = t
+    cache_file.write_text(json.dumps(cache, sort_keys=True, indent=1))
+    return cache["stars"], cache["forks"], cache["floor"]
+
+
 def gh_repo_rows(cmap, lmap, cov_start):
     """蜡烛 = 仓库每日 commit 数，量柱 = 当日变更行数。"""
     rows = []
@@ -377,27 +477,31 @@ SVG_STR = {
         tag_commits="daily · commits, volume = contributions",
         tag_lines="daily · contributions, volume = lines changed",
         tag_ghrepo="daily · commits, volume = lines changed",
+        tag_ghstars="daily · new stars, volume = new forks",
         up="rise", down="fall", vol_word="VOL",
         vol_github="contrib", vol_repo="commits", vol_commits="contrib",
-        vol_lines="lines", vol_ghrepo="lines",
+        vol_lines="lines", vol_ghrepo="lines", vol_ghstars="forks",
         meta_github="last {m} active days · {total} contributions since {first} · updated {today}",
         meta_repo="last {m} active days · {total} file changes since {first} · updated {today}",
         meta_commits="last {m} active days · {wc} commits · {wv} contributions · updated {today}",
         meta_lines="last {m} active days · {wc} contributions · {wv} lines changed · updated {today}",
-        meta_ghrepo="last {m} active days · {wc} commits · {wv} lines changed · updated {today}"),
+        meta_ghrepo="last {m} active days · {wc} commits · {wv} lines changed · updated {today}",
+        meta_ghstars="last {m} days · +{wc} stars · +{wv} forks · updated {today}"),
     "zh": dict(
         tag_github="日K · GitHub 贡献", tag_repo="日K · 文件修改事项",
         tag_commits="日K · Commit（量柱=总贡献）",
         tag_lines="日K · 贡献（量柱=代码行数）",
         tag_ghrepo="日K · Commit（量柱=代码行数）",
+        tag_ghstars="日K · 新增Star（量柱=新增Fork）",
         up="涨", down="跌", vol_word="成交",
         vol_github="贡献", vol_repo="提交", vol_commits="贡献", vol_lines="行",
-        vol_ghrepo="行",
+        vol_ghrepo="行", vol_ghstars="fork",
         meta_github="近 {m} 个活跃日 · 自 {first} 累计贡献 {total} 次 · 更新于 {today}",
         meta_repo="近 {m} 个活跃日 · 自 {first} 累计修改 {total} 项 · 更新于 {today}",
         meta_commits="近 {m} 个活跃日 · commit {wc} 次 · 贡献 {wv} 次 · 更新于 {today}",
         meta_lines="近 {m} 个活跃日 · 贡献 {wc} 次 · 变更 {wv} 行 · 更新于 {today}",
-        meta_ghrepo="近 {m} 个活跃日 · commit {wc} 次 · 变更 {wv} 行 · 更新于 {today}"),
+        meta_ghrepo="近 {m} 个活跃日 · commit {wc} 次 · 变更 {wv} 行 · 更新于 {today}",
+        meta_ghstars="近 {m} 个交易日 · +{wc} star · +{wv} fork · 更新于 {today}"),
 }
 
 
@@ -630,10 +734,12 @@ def main():
     g.add_argument("--github-repo", metavar="OWNER/NAME",
                    help="仓库维度：该仓库默认分支的每日 commit 数（蜡烛）"
                         "与变更行数（量柱）")
-    ap.add_argument("--metric", choices=("contributions", "commits", "lines"),
+    ap.add_argument("--metric",
+                    choices=("contributions", "commits", "lines", "stars"),
                     default="contributions",
-                    help="--github 模式指标：commits=蜡烛为每日commit数、量柱为总贡献；"
-                         "lines=蜡烛为每日贡献、量柱为代码变更行数（默认 contributions）")
+                    help="--github 模式：commits=蜡烛为每日commit数、量柱为总贡献；"
+                         "lines=蜡烛为每日贡献、量柱为代码变更行数（默认 contributions）。"
+                         "--github-repo 模式：stars=蜡烛为每日新增star、量柱为新增fork")
     ap.add_argument("-o", "--out", help="输出 HTML 路径（默认 ./<名字>-kline.html）")
     ap.add_argument("--svg", metavar="DIR",
                     help="改为输出静态 SVG（kline-light.svg + kline-dark.svg），"
@@ -648,30 +754,50 @@ def main():
     if args.selftest:
         selftest()
         return
+    if args.metric == "stars" and not args.github_repo:
+        sys.exit("--metric stars 仅用于 --github-repo（仓库维度）")
 
     if args.github_repo:
         full = args.github_repo
         if "/" not in full:
             sys.exit("--github-repo 需要 OWNER/NAME 形式")
+        slug = full.replace("/", "-")
+        need = args.days + 30 if args.svg and args.days > 0 else 0
         try:
-            cmap, lmap, cov = github_repo_daily(
-                full, args.days + 30 if args.svg and args.days > 0 else 0)
+            if args.metric == "stars":
+                base = Path(args.svg) if args.svg else Path.cwd()
+                base.mkdir(parents=True, exist_ok=True)
+                cmap, lmap, cov = github_repo_stars_daily(
+                    full, need, base / f"{slug}.stars.json")
+            else:
+                cmap, lmap, cov = github_repo_daily(full, need)
         except FileNotFoundError:
             sys.exit("需要 GitHub CLI：brew install gh && gh auth login")
         except subprocess.CalledProcessError as e:
             sys.exit(f"gh 失败: {e.stderr.strip()}")
         if not cmap:
-            sys.exit("仓库不存在、无权限或没有可统计的提交")
+            sys.exit("仓库不存在、无权限或没有可统计的数据")
         rows = gh_repo_rows(cmap, lmap, cov)
-        kind, title = "ghrepo", full
-        tag = "日K · Commit（量柱=代码行数）"
-        volunit, vollabel = "行", "变更行数"
-        explain = ("收盘 = 当日 commit 数 · 开盘 = 昨日 commit 数 · "
-                   "量柱 = 当日代码变更行数（默认分支全体作者）· 无提交日休市")
-        meta = (f"{len(rows)} 个活跃日 · commit {sum(r['c'] for r in rows)} 次 · "
-                f"变更 {sum(r['v'] for r in rows)} 行 · "
-                f"{rows[0]['d']} ~ {rows[-1]['d']}")
-        name = f"{full.replace('/', '-')}-kline.html"
+        if args.metric == "stars":
+            kind, title = "ghstars", full
+            tag = "日K · 新增Star（量柱=新增Fork）"
+            volunit, vollabel = "个", "新增 fork"
+            explain = ("收盘 = 当日新增 star · 开盘 = 昨日新增 star · "
+                       "量柱 = 当日新增 fork · 零星日休市 · 取消的星不追溯")
+            meta = (f"{len(rows)} 个交易日 · +{sum(r['c'] for r in rows):,} star · "
+                    f"+{sum(r['v'] for r in rows):,} fork · "
+                    f"{rows[0]['d']} ~ {rows[-1]['d']}")
+            name = f"{slug}-stars-kline.html"
+        else:
+            kind, title = "ghrepo", full
+            tag = "日K · Commit（量柱=代码行数）"
+            volunit, vollabel = "行", "变更行数"
+            explain = ("收盘 = 当日 commit 数 · 开盘 = 昨日 commit 数 · "
+                       "量柱 = 当日代码变更行数（默认分支全体作者）· 无提交日休市")
+            meta = (f"{len(rows)} 个活跃日 · commit {sum(r['c'] for r in rows)} 次 · "
+                    f"变更 {sum(r['v'] for r in rows)} 行 · "
+                    f"{rows[0]['d']} ~ {rows[-1]['d']}")
+            name = f"{slug}-kline.html"
     elif args.github:
         try:
             cal = github_daily(args.github)

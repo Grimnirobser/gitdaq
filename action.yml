@@ -15,7 +15,8 @@ inputs:
     description: >-
       Chart a repository instead of a user (OWNER/NAME). Candles = daily
       commits on the default branch (all authors), volume = lines changed.
-      When set, `user` and `metric` are ignored.
+      Combine with `metric: stars` for new-stars candles / new-forks volume.
+      When set, `user` is ignored.
     default: ""
   github_token:
     description: >-
@@ -27,7 +28,9 @@ inputs:
     description: >-
       contributions (candles = daily total contributions) · commits
       (candles = daily commits, volume = total contributions) · lines
-      (candles = daily contributions, volume = lines of code changed)
+      (candles = daily contributions, volume = lines of code changed) ·
+      stars (repo mode only: candles = new stars/day, volume = new
+      forks/day; keeps a .stars.json baseline next to the SVGs — commit it)
     default: "contributions"
   days:
     description: "Number of recent active days to plot (0 = all)"
@@ -49,6 +52,7 @@ runs:
         if [ -n "${{ inputs.repo }}" ]; then
           python3 "${{ github.action_path }}/kline.py" \
             --github-repo "${{ inputs.repo }}" \
+            --metric "${{ inputs.metric }}" \
             --svg "${{ inputs.output_dir }}" \
             --days "${{ inputs.days }}" \
             --lang "${{ inputs.lang }}"

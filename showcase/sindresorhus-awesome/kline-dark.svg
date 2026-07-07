@@ -1,217 +1,75 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 496" width="840" height="496" font-family="-apple-system,&#39;Segoe UI&#39;,system-ui,sans-serif" role="img" aria-label="sindresorhus/awesome candlestick chart">
 <text x="14.0" y="20.0" font-size="15" fill="#ffffff" font-weight="650">sindresorhus/awesome</text>
-<text x="183.0" y="20.0" font-size="11.5" fill="#c3c2b7">daily · commits, volume = lines changed</text>
+<text x="183.0" y="20.0" font-size="11.5" fill="#c3c2b7">daily · new stars, volume = new forks</text>
 <text x="805.8" y="20.0" font-size="11.0" fill="#c3c2b7">fall</text>
 <rect x="791" y="10" width="9" height="12" fill="#008300"/>
 <text x="750.6" y="20.0" font-size="11.0" fill="#c3c2b7">rise</text>
 <rect x="736" y="10" width="9" height="12" fill="none" stroke="#e66767" stroke-width="1.5"/>
-<text x="14.0" y="38.0" font-size="11.0" fill="#898781">last 60 active days · 88 commits · 502 lines changed · updated 2026-07-07</text>
+<text x="14.0" y="38.0" font-size="11.0" fill="#898781">last 18 days · +5,860 stars · +336 forks · updated 2026-07-07</text>
 <rect x="10" y="66" width="820" height="290" fill="none" stroke="#2c2c2a"/>
 <rect x="10" y="384" width="820" height="86" fill="none" stroke="#2c2c2a"/>
-<text x="38.0" y="490.0" font-size="11.0" fill="#898781" text-anchor="middle">2024-02</text>
-<line x1="37.3" y1="66.0" x2="37.3" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="37.3" y1="384.0" x2="37.3" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="51.0" y1="66.0" x2="51.0" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="51.0" y1="384.0" x2="51.0" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="92.0" y1="66.0" x2="92.0" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="92.0" y1="384.0" x2="92.0" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="160.3" y1="66.0" x2="160.3" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="160.3" y1="384.0" x2="160.3" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<text x="167.2" y="490.0" font-size="11.0" fill="#898781" text-anchor="middle">2024-06</text>
-<line x1="174.0" y1="66.0" x2="174.0" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="174.0" y1="384.0" x2="174.0" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="201.3" y1="66.0" x2="201.3" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="201.3" y1="384.0" x2="201.3" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="228.7" y1="66.0" x2="228.7" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="228.7" y1="384.0" x2="228.7" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<text x="235.5" y="490.0" font-size="11.0" fill="#898781" text-anchor="middle">2024-09</text>
-<line x1="242.3" y1="66.0" x2="242.3" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="242.3" y1="384.0" x2="242.3" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="283.3" y1="66.0" x2="283.3" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="283.3" y1="384.0" x2="283.3" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="338.0" y1="66.0" x2="338.0" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="338.0" y1="384.0" x2="338.0" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<text x="344.8" y="490.0" font-size="11.0" fill="#898781" text-anchor="middle">2024-12</text>
-<line x1="351.7" y1="66.0" x2="351.7" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="351.7" y1="384.0" x2="351.7" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="379.0" y1="66.0" x2="379.0" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="379.0" y1="384.0" x2="379.0" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="406.3" y1="66.0" x2="406.3" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="406.3" y1="384.0" x2="406.3" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<text x="413.2" y="490.0" font-size="11.0" fill="#898781" text-anchor="middle">2025-04</text>
-<line x1="420.0" y1="66.0" x2="420.0" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="420.0" y1="384.0" x2="420.0" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="447.3" y1="66.0" x2="447.3" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="447.3" y1="384.0" x2="447.3" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="474.7" y1="66.0" x2="474.7" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="474.7" y1="384.0" x2="474.7" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<text x="481.5" y="490.0" font-size="11.0" fill="#898781" text-anchor="middle">2025-07</text>
-<line x1="502.0" y1="66.0" x2="502.0" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="502.0" y1="384.0" x2="502.0" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="515.7" y1="66.0" x2="515.7" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="515.7" y1="384.0" x2="515.7" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="556.7" y1="66.0" x2="556.7" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="556.7" y1="384.0" x2="556.7" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<text x="563.5" y="490.0" font-size="11.0" fill="#898781" text-anchor="middle">2025-11</text>
-<line x1="611.3" y1="66.0" x2="611.3" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="611.3" y1="384.0" x2="611.3" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="652.3" y1="66.0" x2="652.3" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="652.3" y1="384.0" x2="652.3" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<text x="659.2" y="490.0" font-size="11.0" fill="#898781" text-anchor="middle">2026-02</text>
-<line x1="666.0" y1="66.0" x2="666.0" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="666.0" y1="384.0" x2="666.0" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="693.3" y1="66.0" x2="693.3" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="693.3" y1="384.0" x2="693.3" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="734.3" y1="66.0" x2="734.3" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="734.3" y1="384.0" x2="734.3" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<text x="741.2" y="490.0" font-size="11.0" fill="#898781" text-anchor="middle">2026-05</text>
-<line x1="761.7" y1="66.0" x2="761.7" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
-<line x1="761.7" y1="384.0" x2="761.7" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
+<text x="38.0" y="490.0" font-size="11.0" fill="#898781" text-anchor="middle">2026-06</text>
+<line x1="511.1" y1="66.0" x2="511.1" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
+<line x1="511.1" y1="384.0" x2="511.1" y2="470.0" stroke="#2c2c2a" stroke-width="1.0"/>
+<text x="533.9" y="490.0" font-size="11.0" fill="#898781" text-anchor="middle">2026-07</text>
 <text x="14.0" y="58.0" font-size="11.0" fill="#c3c2b7">BOLL(20,2)</text>
-<text x="84.5" y="58.0" font-size="11.0" fill="#c98500">UP:1.5</text>
-<text x="130.8" y="58.0" font-size="11.0" fill="#3987e5">MID:1.1</text>
-<text x="183.2" y="58.0" font-size="11.0" fill="#d55181">LOW:0.6</text>
-<text x="235.5" y="58.0" font-size="11.0" fill="#9085e9">MA7:1</text>
+<text x="84.5" y="58.0" font-size="11.0" fill="#c98500">UP:—</text>
+<text x="118.7" y="58.0" font-size="11.0" fill="#3987e5">MID:—</text>
+<text x="158.9" y="58.0" font-size="11.0" fill="#d55181">LOW:—</text>
+<text x="199.2" y="58.0" font-size="11.0" fill="#9085e9">MA7:355</text>
 <line x1="10.0" y1="356.0" x2="830.0" y2="356.0" stroke="#2c2c2a" stroke-width="1.0"/>
 <text x="14.0" y="353.0" font-size="11.0" fill="#898781">0</text>
-<line x1="10.0" y1="217.9" x2="830.0" y2="217.9" stroke="#2c2c2a" stroke-width="1.0"/>
-<text x="14.0" y="214.9" font-size="11.0" fill="#898781">5</text>
-<line x1="10.0" y1="79.8" x2="830.0" y2="79.8" stroke="#2c2c2a" stroke-width="1.0"/>
-<text x="14.0" y="76.8" font-size="11.0" fill="#898781">10</text>
-<polyline points="16.8,212.4 30.5,216.2 44.2,216.2 57.8,216.2 71.5,216.2 85.2,216.2 98.8,217.1 112.5,236.7 126.2,236.7 139.8,237.8 153.5,237.8 167.2,237.8 180.8,237.8 194.5,269.8 208.2,269.8 221.8,269.8 235.5,271.5 249.2,269.8 262.8,269.8 276.5,268.2 290.2,284.7 303.8,294.7 317.5,291.9 331.2,291.9 344.8,291.9 358.5,291.9 372.2,291.9 385.8,304.6 399.5,304.6 413.2,304.6 426.8,203.5 440.5,203.5 454.2,203.5 467.8,203.5 481.5,203.5 495.2,203.5 508.8,203.5 522.5,204.9 536.2,197.2 549.8,180.1 563.5,180.1 577.2,180.1 590.8,181.2 604.5,181.2 618.2,181.2 631.8,181.2 645.5,181.2 659.2,181.2 672.8,181.2 686.5,180.1 700.2,247.2 713.8,247.2 727.5,247.2 741.2,247.2 754.8,247.2 768.5,247.2 782.2,247.2 795.8,247.2 809.5,259.3 823.2,314.8" fill="none" stroke="#c98500" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-<polyline points="16.8,302.1 30.5,303.5 44.2,303.5 57.8,303.5 71.5,303.5 85.2,303.5 98.8,304.9 112.5,309.0 126.2,309.0 139.8,310.4 153.5,310.4 167.2,310.4 180.8,310.4 194.5,317.3 208.2,317.3 221.8,317.3 235.5,318.7 249.2,317.3 262.8,317.3 276.5,316.0 290.2,320.1 303.8,322.9 317.5,321.5 331.2,321.5 344.8,321.5 358.5,321.5 372.2,321.5 385.8,324.2 399.5,324.2 413.2,324.2 426.8,311.8 440.5,311.8 454.2,311.8 467.8,311.8 481.5,311.8 495.2,311.8 508.8,311.8 522.5,313.2 536.2,309.0 549.8,303.5 563.5,303.5 577.2,303.5 590.8,304.9 604.5,304.9 618.2,304.9 631.8,304.9 645.5,304.9 659.2,304.9 672.8,304.9 686.5,303.5 700.2,316.0 713.8,316.0 727.5,316.0 741.2,316.0 754.8,316.0 768.5,316.0 782.2,316.0 795.8,316.0 809.5,320.1 823.2,327.0" fill="none" stroke="#3987e5" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-<polyline points="16.8,356.0 30.5,356.0 44.2,356.0 57.8,356.0 71.5,356.0 85.2,356.0 98.8,356.0 112.5,356.0 126.2,356.0 139.8,356.0 153.5,356.0 167.2,356.0 180.8,356.0 194.5,356.0 208.2,356.0 221.8,356.0 235.5,356.0 249.2,356.0 262.8,356.0 276.5,356.0 290.2,355.4 303.8,351.0 317.5,351.0 331.2,351.0 344.8,351.0 358.5,351.0 372.2,351.0 385.8,343.8 399.5,343.8 413.2,343.8 426.8,356.0 440.5,356.0 454.2,356.0 467.8,356.0 481.5,356.0 495.2,356.0 508.8,356.0 522.5,356.0 536.2,356.0 549.8,356.0 563.5,356.0 577.2,356.0 590.8,356.0 604.5,356.0 618.2,356.0 631.8,356.0 645.5,356.0 659.2,356.0 672.8,356.0 686.5,356.0 700.2,356.0 713.8,356.0 727.5,356.0 741.2,356.0 754.8,356.0 768.5,356.0 782.2,356.0 795.8,356.0 809.5,356.0 823.2,339.2" fill="none" stroke="#d55181" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-<polyline points="16.8,311.8 30.5,303.5 44.2,303.5 57.8,309.0 71.5,309.0 85.2,309.0 98.8,309.0 112.5,311.8 126.2,320.1 139.8,320.1 153.5,320.1 167.2,320.1 180.8,320.1 194.5,320.1 208.2,328.4 221.8,328.4 235.5,328.4 249.2,325.6 262.8,325.6 276.5,320.1 290.2,320.1 303.8,320.1 317.5,317.3 331.2,317.3 344.8,320.1 358.5,320.1 372.2,325.6 385.8,325.6 399.5,325.6 413.2,328.4 426.8,292.5 440.5,292.5 454.2,292.5 467.8,292.5 481.5,292.5 495.2,292.5 508.8,292.5 522.5,328.4 536.2,317.3 549.8,298.0 563.5,298.0 577.2,298.0 590.8,298.0 604.5,298.0 618.2,298.0 631.8,309.0 645.5,328.4 659.2,328.4 672.8,328.4 686.5,325.6 700.2,325.6 713.8,325.6 727.5,325.6 741.2,325.6 754.8,325.6 768.5,325.6 782.2,328.4 795.8,328.4 809.5,328.4 823.2,328.4" fill="none" stroke="#9085e9" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="13.1" y="245.5" width="7.5" height="110.5" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="26.7" y="245.5" width="7.5" height="27.6" fill="#008300"/>
-<rect x="40.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="54.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="67.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="81.4" y="328.4" width="7.5" height="1.2" fill="#898781"/>
-<rect x="95.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="108.7" y="273.1" width="7.5" height="82.9" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="122.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="136.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="149.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="163.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="177.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="190.7" y="328.4" width="7.5" height="1.2" fill="#898781"/>
-<rect x="204.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="218.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="231.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="245.4" y="300.8" width="7.5" height="55.2" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="259.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="272.7" y="300.8" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="286.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="300.1" y="328.4" width="7.5" height="1.2" fill="#898781"/>
-<rect x="313.7" y="300.8" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="327.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="341.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="354.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="368.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="382.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="395.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="409.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="423.1" y="79.8" width="7.5" height="276.2" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="436.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="450.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="464.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="477.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="491.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="505.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="518.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="532.4" y="245.5" width="7.5" height="110.5" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="546.1" y="190.3" width="7.5" height="55.2" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="559.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="573.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="587.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="600.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="614.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="628.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="641.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="655.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="669.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="682.7" y="300.8" width="7.5" height="55.2" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="696.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="710.1" y="328.4" width="7.5" height="1.2" fill="#898781"/>
-<rect x="723.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="737.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="751.1" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="764.7" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="778.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<rect x="792.1" y="328.4" width="7.5" height="1.2" fill="#898781"/>
-<rect x="805.7" y="328.4" width="7.5" height="1.2" fill="#898781"/>
-<rect x="819.4" y="328.4" width="7.5" height="27.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
-<circle cx="426.8" cy="79.8" r="2" fill="#c3c2b7"/>
-<line x1="426.8" y1="79.8" x2="418.8" y2="79.8" stroke="#c3c2b7" stroke-width="1.0"/>
-<text x="415.8" y="83.8" font-size="11.0" fill="#c3c2b7" text-anchor="end">10</text>
-<circle cx="16.8" cy="356.0" r="2" fill="#c3c2b7"/>
-<line x1="16.8" y1="356.0" x2="24.8" y2="356.0" stroke="#c3c2b7" stroke-width="1.0"/>
-<text x="27.8" y="350.0" font-size="11.0" fill="#c3c2b7">0</text>
-<text x="14.0" y="376.0" font-size="11.0" fill="#c3c2b7">VOL 1 lines</text>
-<text x="90.5" y="376.0" font-size="11.0" fill="#c98500">MA5:5.2</text>
-<text x="142.9" y="376.0" font-size="11.0" fill="#3987e5">MA10:7.2</text>
-<text x="14.0" y="395.0" font-size="10" fill="#898781">54</text>
-<rect x="13.1" y="388.0" width="7.5" height="82.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="26.7" y="465.4" width="7.5" height="4.6" fill="#008300"/>
-<rect x="40.4" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="54.1" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="67.7" y="445.7" width="7.5" height="24.3" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="81.4" y="463.9" width="7.5" height="6.1" fill="#898781"/>
-<rect x="95.1" y="454.8" width="7.5" height="15.2" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="108.7" y="460.9" width="7.5" height="9.1" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="122.4" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="136.1" y="419.9" width="7.5" height="50.1" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="149.7" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="163.4" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="177.1" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="190.7" y="468.5" width="7.5" height="1.5" fill="#898781"/>
-<rect x="204.4" y="389.5" width="7.5" height="80.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="218.1" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="231.7" y="441.1" width="7.5" height="28.9" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="245.4" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="259.1" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="272.7" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="286.4" y="453.3" width="7.5" height="16.7" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="300.1" y="468.5" width="7.5" height="1.5" fill="#898781"/>
-<rect x="313.7" y="465.4" width="7.5" height="4.6" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="327.4" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="341.1" y="441.1" width="7.5" height="28.9" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="354.7" y="465.4" width="7.5" height="4.6" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="368.4" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="382.1" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="395.7" y="448.7" width="7.5" height="21.3" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="409.4" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="423.1" y="454.8" width="7.5" height="15.2" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="436.7" y="412.3" width="7.5" height="57.7" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="450.4" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="464.1" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="477.7" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="491.4" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="505.1" y="448.7" width="7.5" height="21.3" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="518.7" y="447.2" width="7.5" height="22.8" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="532.4" y="460.9" width="7.5" height="9.1" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="546.1" y="460.9" width="7.5" height="9.1" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="559.7" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="573.4" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="587.1" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="600.7" y="448.7" width="7.5" height="21.3" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="614.4" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="628.1" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="641.7" y="454.8" width="7.5" height="15.2" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="655.4" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="669.1" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="682.7" y="421.4" width="7.5" height="48.6" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="696.4" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="710.1" y="451.8" width="7.5" height="18.2" fill="#898781"/>
-<rect x="723.7" y="465.4" width="7.5" height="4.6" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="737.4" y="429.0" width="7.5" height="41.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="751.1" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="764.7" y="467.0" width="7.5" height="3.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="778.4" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<rect x="792.1" y="463.9" width="7.5" height="6.1" fill="#898781"/>
-<rect x="805.7" y="442.7" width="7.5" height="27.3" fill="#898781"/>
-<rect x="819.4" y="468.5" width="7.5" height="1.5" fill="none" stroke="#e66767" stroke-width="1.1"/>
-<polyline points="16.8,453.6 30.5,453.3 44.2,453.3 57.8,454.8 71.5,453.0 85.2,452.5 98.8,454.1 112.5,455.0 126.2,454.8 139.8,450.1 153.5,458.2 167.2,458.5 180.8,458.6 194.5,458.6 208.2,453.0 221.8,453.3 235.5,451.9 249.2,452.5 262.8,452.7 276.5,457.4 290.2,455.9 303.8,455.9 317.5,455.6 331.2,455.6 344.8,460.7 358.5,460.6 372.2,463.3 385.8,463.5 399.5,461.5 413.2,461.6 426.8,461.8 440.5,456.2 454.2,456.3 467.8,456.3 481.5,459.1 495.2,459.4 508.8,457.4 522.5,455.3 536.2,456.5 549.8,455.7 563.5,457.1 577.2,462.7 590.8,462.9 604.5,460.9 618.2,460.7 631.8,460.6 645.5,461.2 659.2,463.2 672.8,463.8 686.5,459.8 700.2,459.7 713.8,458.0 727.5,457.7 741.2,455.7 754.8,455.7 768.5,455.7 782.2,457.1 795.8,456.8 809.5,454.4 823.2,459.1" fill="none" stroke="#3987e5" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-<polyline points="16.8,443.0 30.5,448.1 44.2,451.2 57.8,451.2 71.5,446.9 85.2,462.1 98.8,460.0 112.5,458.8 126.2,458.5 139.8,453.3 153.5,454.2 167.2,456.9 180.8,458.5 194.5,458.8 208.2,452.7 221.8,452.4 235.5,446.9 249.2,446.6 262.8,446.6 276.5,462.1 290.2,459.4 303.8,464.8 317.5,464.5 331.2,464.5 344.8,459.4 358.5,461.8 372.2,461.8 385.8,462.4 399.5,458.5 413.2,463.9 426.8,461.8 440.5,450.6 454.2,450.3 467.8,454.2 481.5,454.2 495.2,456.9 508.8,464.2 522.5,460.3 536.2,458.8 549.8,457.2 563.5,457.2 577.2,461.2 590.8,465.4 604.5,463.0 618.2,464.2 631.8,463.9 645.5,461.2 659.2,460.9 672.8,464.5 686.5,455.4 700.2,455.4 713.8,454.8 727.5,454.5 741.2,446.9 754.8,456.0 768.5,456.0 782.2,459.4 795.8,459.1 809.5,461.8 823.2,462.1" fill="none" stroke="#c98500" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="10.0" y1="239.5" x2="830.0" y2="239.5" stroke="#2c2c2a" stroke-width="1.0"/>
+<text x="14.0" y="236.5" font-size="11.0" fill="#898781">200</text>
+<line x1="10.0" y1="122.9" x2="830.0" y2="122.9" stroke="#2c2c2a" stroke-width="1.0"/>
+<text x="14.0" y="119.9" font-size="11.0" fill="#898781">400</text>
+<polyline points="306.1,180.3 351.7,179.7 397.2,179.4 442.8,180.3 488.3,176.6 533.9,169.7 579.4,166.8 625.0,163.3 670.6,160.9 716.1,158.5 761.7,144.7 807.2,149.1" fill="none" stroke="#9085e9" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="20.8" y="189.4" width="24.0" height="166.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
+<rect x="66.3" y="180.6" width="24.0" height="8.7" fill="none" stroke="#e66767" stroke-width="1.3"/>
+<rect x="111.9" y="169.5" width="24.0" height="11.1" fill="none" stroke="#e66767" stroke-width="1.3"/>
+<rect x="157.4" y="169.5" width="24.0" height="4.1" fill="#008300"/>
+<rect x="203.0" y="173.6" width="24.0" height="12.2" fill="#008300"/>
+<rect x="248.6" y="185.9" width="24.0" height="1.2" fill="#898781"/>
+<rect x="294.1" y="177.1" width="24.0" height="8.7" fill="none" stroke="#e66767" stroke-width="1.3"/>
+<rect x="339.7" y="177.1" width="24.0" height="8.2" fill="#008300"/>
+<rect x="385.2" y="178.3" width="24.0" height="7.0" fill="none" stroke="#e66767" stroke-width="1.3"/>
+<rect x="430.8" y="176.0" width="24.0" height="2.3" fill="none" stroke="#e66767" stroke-width="1.3"/>
+<rect x="476.3" y="148.0" width="24.0" height="28.0" fill="none" stroke="#e66767" stroke-width="1.3"/>
+<rect x="521.9" y="137.5" width="24.0" height="10.5" fill="none" stroke="#e66767" stroke-width="1.3"/>
+<rect x="567.4" y="137.5" width="24.0" height="28.0" fill="#008300"/>
+<rect x="613.0" y="152.6" width="24.0" height="12.8" fill="none" stroke="#e66767" stroke-width="1.3"/>
+<rect x="658.6" y="152.6" width="24.0" height="15.7" fill="#008300"/>
+<rect x="704.1" y="161.4" width="24.0" height="7.0" fill="none" stroke="#e66767" stroke-width="1.3"/>
+<rect x="749.7" y="79.8" width="24.0" height="81.6" fill="none" stroke="#e66767" stroke-width="1.3"/>
+<rect x="795.2" y="79.8" width="24.0" height="99.1" fill="#008300"/>
+<circle cx="761.7" cy="79.8" r="2" fill="#c3c2b7"/>
+<line x1="761.7" y1="79.8" x2="753.7" y2="79.8" stroke="#c3c2b7" stroke-width="1.0"/>
+<text x="750.7" y="83.8" font-size="11.0" fill="#c3c2b7" text-anchor="end">474</text>
+<circle cx="32.8" cy="356.0" r="2" fill="#c3c2b7"/>
+<line x1="32.8" y1="356.0" x2="40.8" y2="356.0" stroke="#c3c2b7" stroke-width="1.0"/>
+<text x="43.8" y="350.0" font-size="11.0" fill="#c3c2b7">0</text>
+<text x="14.0" y="376.0" font-size="11.0" fill="#c3c2b7">VOL 17 forks</text>
+<text x="96.6" y="376.0" font-size="11.0" fill="#c98500">MA5:23.4</text>
+<text x="155.0" y="376.0" font-size="11.0" fill="#3987e5">MA10:20.1</text>
+<text x="14.0" y="395.0" font-size="10" fill="#898781">46</text>
+<rect x="20.8" y="437.9" width="24.0" height="32.1" fill="none" stroke="#e66767" stroke-width="1.1"/>
+<rect x="66.3" y="446.8" width="24.0" height="23.2" fill="none" stroke="#e66767" stroke-width="1.1"/>
+<rect x="111.9" y="446.8" width="24.0" height="23.2" fill="none" stroke="#e66767" stroke-width="1.1"/>
+<rect x="157.4" y="441.5" width="24.0" height="28.5" fill="#008300"/>
+<rect x="203.0" y="439.7" width="24.0" height="30.3" fill="#008300"/>
+<rect x="248.6" y="423.7" width="24.0" height="46.3" fill="#898781"/>
+<rect x="294.1" y="443.3" width="24.0" height="26.7" fill="none" stroke="#e66767" stroke-width="1.1"/>
+<rect x="339.7" y="439.7" width="24.0" height="30.3" fill="#008300"/>
+<rect x="385.2" y="448.6" width="24.0" height="21.4" fill="none" stroke="#e66767" stroke-width="1.1"/>
+<rect x="430.8" y="423.7" width="24.0" height="46.3" fill="none" stroke="#e66767" stroke-width="1.1"/>
+<rect x="476.3" y="436.1" width="24.0" height="33.9" fill="none" stroke="#e66767" stroke-width="1.1"/>
+<rect x="521.9" y="443.3" width="24.0" height="26.7" fill="none" stroke="#e66767" stroke-width="1.1"/>
+<rect x="567.4" y="448.6" width="24.0" height="21.4" fill="#008300"/>
+<rect x="613.0" y="439.7" width="24.0" height="30.3" fill="none" stroke="#e66767" stroke-width="1.1"/>
+<rect x="658.6" y="436.1" width="24.0" height="33.9" fill="#008300"/>
+<rect x="704.1" y="437.9" width="24.0" height="32.1" fill="none" stroke="#e66767" stroke-width="1.1"/>
+<rect x="749.7" y="388.0" width="24.0" height="82.0" fill="none" stroke="#e66767" stroke-width="1.1"/>
+<rect x="795.2" y="439.7" width="24.0" height="30.3" fill="#008300"/>
+<polyline points="442.8,439.2 488.3,439.0 533.9,438.6 579.4,438.8 625.0,438.6 670.6,438.3 716.1,439.7 761.7,434.2 807.2,434.2" fill="none" stroke="#3987e5" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="215.0,442.5 260.6,439.7 306.1,439.0 351.7,437.6 397.2,439.0 442.8,435.8 488.3,438.3 533.9,438.3 579.4,440.1 625.0,438.3 670.6,440.8 716.1,441.1 761.7,430.1 807.2,428.3" fill="none" stroke="#c98500" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
 </svg>

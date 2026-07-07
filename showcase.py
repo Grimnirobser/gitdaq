@@ -28,7 +28,7 @@ def render(item):
         return True
     r = subprocess.run(
         [sys.executable, str(ROOT / "kline.py"),
-         "--github-repo", full, "--svg", str(d)],
+         "--github-repo", full, "--metric", "stars", "--svg", str(d)],
         capture_output=True, text=True)
     if r.returncode:
         print(f"skip {full}: {r.stderr.strip()}", file=sys.stderr)
@@ -63,8 +63,9 @@ def main():
         f"by [`showcase.yml`](../.github/workflows/showcase.yml).",
         "",
         f"**^GDQ20 {total:,}** (sum of constituents' stars) · close {today} · "
-        f"candles = daily commits on the default branch (all authors) · "
-        f"volume = lines changed · red up, green down (A-share convention).",
+        f"candles = **new stars per day** (close vs. yesterday's intake) · "
+        f"volume = **new forks per day** · red = hype accelerating, green = "
+        f"cooling (A-share convention).",
         "",
     ]
     for i, it in enumerate(board, 1):
@@ -79,7 +80,7 @@ def main():
             "<picture>",
             f'  <source media="(prefers-color-scheme: dark)" '
             f'srcset="{slug}/kline-dark.svg">',
-            f'  <img alt="{html.escape(full)} daily commits as a candlestick '
+            f'  <img alt="{html.escape(full)} daily new stars as a candlestick '
             f'chart" src="{slug}/kline-light.svg">',
             "</picture>",
             "",
@@ -113,7 +114,7 @@ def update_main_readme(board, total, today):
             f'<picture>\n'
             f'  <source media="(prefers-color-scheme: dark)" '
             f'srcset="showcase/{slug}/kline-dark.svg">\n'
-            f'  <img alt="{html.escape(full)} daily commits as a candlestick '
+            f'  <img alt="{html.escape(full)} daily new stars as a candlestick '
             f'chart" src="showcase/{slug}/kline-light.svg">\n'
             f'</picture>\n</td>')
     trs = ["<tr>\n" + "\n".join(cells[i:i + 2]) + "\n</tr>"

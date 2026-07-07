@@ -5,8 +5,9 @@
 gitdaq renders your GitHub activity as a **candlestick (K-line) chart** — right
 on your profile README. Red means you "rallied" (more than yesterday), green
 means you "sold off". Chinese A-share color convention, and a Xueqiu-style
-terminal layout: **BOLL(20,2) bands** over the candles and a **volume pane
-with MA5/MA10** — plus period high/low callouts, the whole trading-app look.
+terminal layout: **BOLL(20,2) bands** and an **MA7 line** over the candles,
+and a **volume pane with MA5/MA10** — plus period high/low callouts, the
+whole trading-app look.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Grimnirobser/Grimnirobser/main/kline/kline-dark.svg">
@@ -120,7 +121,7 @@ run locally; inside Actions the runner's `gh` + workflow token are used.)
 ## 中文速览
 
 把 GitHub 贡献画成**股票日 K 线**挂在个人主页：红涨绿跌（A 股配色）、阳线空心阴线实心、
-雪球风格布局（BOLL 布林带 + 量柱带均量线）、最高/最低点标注。
+雪球风格布局（BOLL 布林带 + MA7 均线 + 量柱带均量线）、最高/最低点标注。
 收盘 = 今日贡献数，开盘 = 昨日贡献数；无贡献日如休市跳过。
 贡献日历只有日粒度，因此主页蜡烛无影线——宁缺毋滥，不编造数据。
 

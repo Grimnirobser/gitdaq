@@ -292,20 +292,20 @@ def selftest():
     for theme in ("light", "dark"):
         svg = render_svg(fake, theme, T)
         assert svg.startswith("<svg") and svg.endswith("</svg>")
-        assert svg.count("<rect") >= 60 and svg.count("<polyline") >= 5
+        assert svg.count("<rect") >= 60 and svg.count("<polyline") >= 6
     print("selftest OK")
 
 
 # ---------- 静态 SVG（GitHub profile README 不能跑 JS） ----------
 
-# 雪球风格三指标线：l1=橙(BOLL上轨/RSI6/MA5)、l2=蓝(中轨/RSI12/MA10)、l3=紫(下轨/RSI24)
+# 雪球风格指标线：l1=橙(BOLL上轨/MA5)、l2=蓝(中轨/MA10)、l3=粉(下轨)、l4=紫(MA7)
 SVG_PAL = {
     "light": dict(ink="#0b0b0b", ink2="#52514e", muted="#898781",
                   grid="#e1e0d9", axis="#c3c2b7", up="#e34948", down="#008300",
-                  l1="#eda100", l2="#2a78d6", l3="#e87ba4"),
+                  l1="#eda100", l2="#2a78d6", l3="#e87ba4", l4="#4a3aa7"),
     "dark":  dict(ink="#ffffff", ink2="#c3c2b7", muted="#898781",
                   grid="#2c2c2a", axis="#383835", up="#e66767", down="#008300",
-                  l1="#c98500", l2="#3987e5", l3="#d55181"),
+                  l1="#c98500", l2="#3987e5", l3="#d55181", l4="#9085e9"),
 }
 
 SVG_STR = {
@@ -466,13 +466,15 @@ def render_svg(rows, theme, t):
     hdr(58, [("BOLL(20,2)", p["ink2"]),
              (f"UP:{val(last.get('bu'))}", p["l1"]),
              (f"MID:{val(last.get('bm'))}", p["l2"]),
-             (f"LOW:{val(last.get('bl'))}", p["l3"])])
+             (f"LOW:{val(last.get('bl'))}", p["l3"]),
+             (f"MA7:{val(last.get('ma7'))}", p["l4"])])
     for g in _nice_ticks(lo, hi, 4):
         if not lo <= g <= hi:
             continue
         line(padL, py(g), padL + plotW, py(g), p["grid"])
         text(padL + 4, py(g) - 3, _fmt(g), p["muted"])
-    for key, col in (("bu", p["l1"]), ("bm", p["l2"]), ("bl", p["l3"])):
+    for key, col in (("bu", p["l1"]), ("bm", p["l2"]), ("bl", p["l3"]),
+                     ("ma7", p["l4"])):
         poly(rows, key, py, col)
     wick_w = max(1, min(1.5, cw / 6))
     for i, r in enumerate(rows):
@@ -528,6 +530,7 @@ def render_svg(rows, theme, t):
 
 def add_indicators(rows):
     add_boll(rows)
+    add_ma(rows, 7, "ma7")
     add_ma(rows, 5, "vma5", "v")
     add_ma(rows, 10, "vma10", "v")
 

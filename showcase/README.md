@@ -1,8 +1,8 @@
-# GITDAQ:TOP20
+# GITDAQ-20
 
-The 20 most-starred repositories on GitHub, each rendered as a candlestick chart by [gitdaq](../README.md). Regenerated daily by [`showcase.yml`](../.github/workflows/showcase.yml).
+What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-starred repositories on the exchange, each rendered as a candlestick chart by [gitdaq](../README.md). Reconstituted daily by [`showcase.yml`](../.github/workflows/showcase.yml).
 
-**Index: ★ 6,532,434** (sum of all 20) · close 2026-07-07 · candles = daily commits on the default branch (all authors) · volume = lines changed · red up, green down (A-share convention).
+**^GDQ20 6,532,453** (sum of constituents' stars) · close 2026-07-07 · candles = daily commits on the default branch (all authors) · volume = lines changed · red up, green down (A-share convention).
 
 ### 01 · [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) — ★ 523,088
 
@@ -13,7 +13,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="codecrafters-io/build-your-own-x daily commits as a candlestick chart" src="codecrafters-io-build-your-own-x/kline-light.svg">
 </picture>
 
-### 02 · [sindresorhus/awesome](https://github.com/sindresorhus/awesome) — ★ 482,482
+### 02 · [sindresorhus/awesome](https://github.com/sindresorhus/awesome) — ★ 482,486
 
 > 😎 Awesome lists about all kinds of interesting topics
 
@@ -22,7 +22,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="sindresorhus/awesome daily commits as a candlestick chart" src="sindresorhus-awesome/kline-light.svg">
 </picture>
 
-### 03 · [freeCodeCamp/freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp) — ★ 451,191
+### 03 · [freeCodeCamp/freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp) — ★ 451,192
 
 > freeCodeCamp.org's open-source codebase and curriculum. Learn math, programming, and computer science for free. · `TypeScript`
 
@@ -49,7 +49,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="EbookFoundation/free-programming-books daily commits as a candlestick chart" src="EbookFoundation-free-programming-books/kline-light.svg">
 </picture>
 
-### 06 · [openclaw/openclaw](https://github.com/openclaw/openclaw) — ★ 382,003
+### 06 · [openclaw/openclaw](https://github.com/openclaw/openclaw) — ★ 382,004
 
 > Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞  · `TypeScript`
 
@@ -121,7 +121,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="practical-tutorials/project-based-learning daily commits as a candlestick chart" src="practical-tutorials-project-based-learning/kline-light.svg">
 </picture>
 
-### 14 · [obra/superpowers](https://github.com/obra/superpowers) — ★ 248,014
+### 14 · [obra/superpowers](https://github.com/obra/superpowers) — ★ 248,020
 
 > An agentic skills framework &amp; software development methodology that works. · `Shell`
 
@@ -130,7 +130,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="obra/superpowers daily commits as a candlestick chart" src="obra-superpowers/kline-light.svg">
 </picture>
 
-### 15 · [react/react](https://github.com/react/react) — ★ 246,279
+### 15 · [react/react](https://github.com/react/react) — ★ 246,280
 
 > The library for web and native user interfaces. · `JavaScript`
 
@@ -157,7 +157,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="trimstray/the-book-of-secret-knowledge daily commits as a candlestick chart" src="trimstray-the-book-of-secret-knowledge/kline-light.svg">
 </picture>
 
-### 18 · [affaan-m/ECC](https://github.com/affaan-m/ECC) — ★ 226,747
+### 18 · [affaan-m/ECC](https://github.com/affaan-m/ECC) — ★ 226,750
 
 > The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond. · `JavaScript`
 
@@ -175,7 +175,7 @@ The 20 most-starred repositories on GitHub, each rendered as a candlestick chart
   <img alt="TheAlgorithms/Python daily commits as a candlestick chart" src="TheAlgorithms-Python/kline-light.svg">
 </picture>
 
-### 20 · [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) — ★ 210,537
+### 20 · [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) — ★ 210,540
 
 > The agent that grows with you · `Python`
 

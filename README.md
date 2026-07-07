@@ -130,11 +130,181 @@ Zero dependencies: Python 3 stdlib only; SVG/HTML are self-contained.
 (`--github` needs an authenticated [GitHub CLI](https://cli.github.com/) when
 run locally; inside Actions the runner's `gh` + workflow token are used.)
 
-## The GITDAQ:TOP20 board
+## The GITDAQ-20 index
 
-The 20 most-starred repositories on GitHub, each charted by this very tool
-and refreshed daily by CI: **[showcase/](showcase/README.md)** — freeCodeCamp,
-react, linux and friends, traded like stocks.
+What the **NASDAQ-100** is to stocks, the **GITDAQ-20** is to GitHub: the 20
+most-starred repositories on the exchange, one candlestick chart each,
+reconstituted and re-charted daily by
+[CI](.github/workflows/showcase.yml). Full-size charts with descriptions:
+[showcase/](showcase/README.md).
+
+<!-- GDQ20:START -->
+<!-- GDQ20:v6532453 -->
+**^GDQ20 &nbsp;6,532,453** · close 2026-07-07 · [constituent detail →](showcase/README.md)
+
+<table>
+<tr>
+<td valign="top" width="50%">
+<b>01 · <a href="https://github.com/codecrafters-io/build-your-own-x">codecrafters-io/build-your-own-x</a></b> — ★ 523,088<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/codecrafters-io-build-your-own-x/kline-dark.svg">
+  <img alt="codecrafters-io/build-your-own-x daily commits as a candlestick chart" src="showcase/codecrafters-io-build-your-own-x/kline-light.svg">
+</picture>
+</td>
+<td valign="top" width="50%">
+<b>02 · <a href="https://github.com/sindresorhus/awesome">sindresorhus/awesome</a></b> — ★ 482,486<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/sindresorhus-awesome/kline-dark.svg">
+  <img alt="sindresorhus/awesome daily commits as a candlestick chart" src="showcase/sindresorhus-awesome/kline-light.svg">
+</picture>
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<b>03 · <a href="https://github.com/freeCodeCamp/freeCodeCamp">freeCodeCamp/freeCodeCamp</a></b> — ★ 451,192<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/freeCodeCamp-freeCodeCamp/kline-dark.svg">
+  <img alt="freeCodeCamp/freeCodeCamp daily commits as a candlestick chart" src="showcase/freeCodeCamp-freeCodeCamp/kline-light.svg">
+</picture>
+</td>
+<td valign="top" width="50%">
+<b>04 · <a href="https://github.com/public-apis/public-apis">public-apis/public-apis</a></b> — ★ 447,334<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/public-apis-public-apis/kline-dark.svg">
+  <img alt="public-apis/public-apis daily commits as a candlestick chart" src="showcase/public-apis-public-apis/kline-light.svg">
+</picture>
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<b>05 · <a href="https://github.com/EbookFoundation/free-programming-books">EbookFoundation/free-programming-books</a></b> — ★ 391,391<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/EbookFoundation-free-programming-books/kline-dark.svg">
+  <img alt="EbookFoundation/free-programming-books daily commits as a candlestick chart" src="showcase/EbookFoundation-free-programming-books/kline-light.svg">
+</picture>
+</td>
+<td valign="top" width="50%">
+<b>06 · <a href="https://github.com/openclaw/openclaw">openclaw/openclaw</a></b> — ★ 382,004<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/openclaw-openclaw/kline-dark.svg">
+  <img alt="openclaw/openclaw daily commits as a candlestick chart" src="showcase/openclaw-openclaw/kline-light.svg">
+</picture>
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<b>07 · <a href="https://github.com/nilbuild/developer-roadmap">nilbuild/developer-roadmap</a></b> — ★ 359,548<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/nilbuild-developer-roadmap/kline-dark.svg">
+  <img alt="nilbuild/developer-roadmap daily commits as a candlestick chart" src="showcase/nilbuild-developer-roadmap/kline-light.svg">
+</picture>
+</td>
+<td valign="top" width="50%">
+<b>08 · <a href="https://github.com/donnemartin/system-design-primer">donnemartin/system-design-primer</a></b> — ★ 356,462<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/donnemartin-system-design-primer/kline-dark.svg">
+  <img alt="donnemartin/system-design-primer daily commits as a candlestick chart" src="showcase/donnemartin-system-design-primer/kline-light.svg">
+</picture>
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<b>09 · <a href="https://github.com/jwasham/coding-interview-university">jwasham/coding-interview-university</a></b> — ★ 355,330<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/jwasham-coding-interview-university/kline-dark.svg">
+  <img alt="jwasham/coding-interview-university daily commits as a candlestick chart" src="showcase/jwasham-coding-interview-university/kline-light.svg">
+</picture>
+</td>
+<td valign="top" width="50%">
+<b>10 · <a href="https://github.com/vinta/awesome-python">vinta/awesome-python</a></b> — ★ 306,745<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/vinta-awesome-python/kline-dark.svg">
+  <img alt="vinta/awesome-python daily commits as a candlestick chart" src="showcase/vinta-awesome-python/kline-light.svg">
+</picture>
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<b>11 · <a href="https://github.com/awesome-selfhosted/awesome-selfhosted">awesome-selfhosted/awesome-selfhosted</a></b> — ★ 303,409<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/awesome-selfhosted-awesome-selfhosted/kline-dark.svg">
+  <img alt="awesome-selfhosted/awesome-selfhosted daily commits as a candlestick chart" src="showcase/awesome-selfhosted-awesome-selfhosted/kline-light.svg">
+</picture>
+</td>
+<td valign="top" width="50%">
+<b>12 · <a href="https://github.com/996icu/996.ICU">996icu/996.ICU</a></b> — ★ 276,370<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/996icu-996.ICU/kline-dark.svg">
+  <img alt="996icu/996.ICU daily commits as a candlestick chart" src="showcase/996icu-996.ICU/kline-light.svg">
+</picture>
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<b>13 · <a href="https://github.com/practical-tutorials/project-based-learning">practical-tutorials/project-based-learning</a></b> — ★ 272,345<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/practical-tutorials-project-based-learning/kline-dark.svg">
+  <img alt="practical-tutorials/project-based-learning daily commits as a candlestick chart" src="showcase/practical-tutorials-project-based-learning/kline-light.svg">
+</picture>
+</td>
+<td valign="top" width="50%">
+<b>14 · <a href="https://github.com/obra/superpowers">obra/superpowers</a></b> — ★ 248,020<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/obra-superpowers/kline-dark.svg">
+  <img alt="obra/superpowers daily commits as a candlestick chart" src="showcase/obra-superpowers/kline-light.svg">
+</picture>
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<b>15 · <a href="https://github.com/react/react">react/react</a></b> — ★ 246,280<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/react-react/kline-dark.svg">
+  <img alt="react/react daily commits as a candlestick chart" src="showcase/react-react/kline-light.svg">
+</picture>
+</td>
+<td valign="top" width="50%">
+<b>16 · <a href="https://github.com/torvalds/linux">torvalds/linux</a></b> — ★ 238,638<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/torvalds-linux/kline-dark.svg">
+  <img alt="torvalds/linux daily commits as a candlestick chart" src="showcase/torvalds-linux/kline-light.svg">
+</picture>
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<b>17 · <a href="https://github.com/trimstray/the-book-of-secret-knowledge">trimstray/the-book-of-secret-knowledge</a></b> — ★ 232,054<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/trimstray-the-book-of-secret-knowledge/kline-dark.svg">
+  <img alt="trimstray/the-book-of-secret-knowledge daily commits as a candlestick chart" src="showcase/trimstray-the-book-of-secret-knowledge/kline-light.svg">
+</picture>
+</td>
+<td valign="top" width="50%">
+<b>18 · <a href="https://github.com/affaan-m/ECC">affaan-m/ECC</a></b> — ★ 226,750<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/affaan-m-ECC/kline-dark.svg">
+  <img alt="affaan-m/ECC daily commits as a candlestick chart" src="showcase/affaan-m-ECC/kline-light.svg">
+</picture>
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<b>19 · <a href="https://github.com/TheAlgorithms/Python">TheAlgorithms/Python</a></b> — ★ 222,467<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/TheAlgorithms-Python/kline-dark.svg">
+  <img alt="TheAlgorithms/Python daily commits as a candlestick chart" src="showcase/TheAlgorithms-Python/kline-light.svg">
+</picture>
+</td>
+<td valign="top" width="50%">
+<b>20 · <a href="https://github.com/NousResearch/hermes-agent">NousResearch/hermes-agent</a></b> — ★ 210,540<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="showcase/NousResearch-hermes-agent/kline-dark.svg">
+  <img alt="NousResearch/hermes-agent daily commits as a candlestick chart" src="showcase/NousResearch-hermes-agent/kline-light.svg">
+</picture>
+</td>
+</tr>
+</table>
+<!-- GDQ20:END -->
 
 ---
 
@@ -150,7 +320,8 @@ react, linux and friends, traded like stocks.
 任意仓库并传 `repo: ${{ github.repository }}`（蜡烛=默认分支全体作者每日 commit、
 量柱=变更行数）。本地模式（交互 HTML、仓库文件修改K线、带真实影线）见上节命令。
 
-另有 **[showcase/](showcase/README.md)**：GitHub star 数前 20 仓库的 K 线行情板，CI 每日刷新。
+另设 **GITDAQ-20 指数**（`^GDQ20`，对标纳斯达克 100）：star 市值前 20 的成分仓库每日 K 线
+行情板，见上方指数版块与 [showcase/](showcase/README.md) 明细页，CI 每日重算点位与涨跌。
 
 ## License
 

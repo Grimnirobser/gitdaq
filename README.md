@@ -147,8 +147,8 @@ reconstituted and re-charted daily by
 [showcase/](showcase/README.md).
 
 <!-- GDQ20:START -->
-<!-- GDQ20:v6533154 -->
-**^GDQ20 &nbsp;6,533,154** ▲ +1 (+0.00%) · close 2026-07-07 · [constituent detail →](showcase/README.md)
+<!-- GDQ20:v6533156 -->
+**^GDQ20 &nbsp;6,533,156** ▲ +2 (+0.00%) · close 2026-07-07 · [constituent detail →](showcase/README.md)
 
 <table>
 <tr>
@@ -288,7 +288,7 @@ reconstituted and re-charted daily by
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>18 · <a href="https://github.com/affaan-m/ECC">affaan-m/ECC</a></b> — ★ 226,806<br>
+<b>18 · <a href="https://github.com/affaan-m/ECC">affaan-m/ECC</a></b> — ★ 226,807<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/affaan-m-ECC/kline-dark.svg">
   <img alt="affaan-m/ECC daily new stars as a candlestick chart" src="showcase/affaan-m-ECC/kline-light.svg">
@@ -304,7 +304,7 @@ reconstituted and re-charted daily by
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>20 · <a href="https://github.com/NousResearch/hermes-agent">NousResearch/hermes-agent</a></b> — ★ 210,640<br>
+<b>20 · <a href="https://github.com/NousResearch/hermes-agent">NousResearch/hermes-agent</a></b> — ★ 210,641<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/NousResearch-hermes-agent/kline-dark.svg">
   <img alt="NousResearch/hermes-agent daily new stars as a candlestick chart" src="showcase/NousResearch-hermes-agent/kline-light.svg">

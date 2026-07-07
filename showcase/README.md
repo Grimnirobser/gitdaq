@@ -2,7 +2,7 @@
 
 What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-starred repositories on the exchange, each rendered as a candlestick chart by [gitdaq](../README.md). Reconstituted daily by [`showcase.yml`](../.github/workflows/showcase.yml).
 
-**^GDQ20 6,533,154** (sum of constituents' stars) · close 2026-07-07 · candles = **new stars per day** (close vs. yesterday's intake) · volume = **new forks per day** · red = hype accelerating, green = cooling (A-share convention).
+**^GDQ20 6,533,156** (sum of constituents' stars) · close 2026-07-07 · candles = **new stars per day** (close vs. yesterday's intake) · volume = **new forks per day** · red = hype accelerating, green = cooling (A-share convention).
 
 ### 01 · [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) — ★ 523,131
 
@@ -157,7 +157,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="trimstray/the-book-of-secret-knowledge daily new stars as a candlestick chart" src="trimstray-the-book-of-secret-knowledge/kline-light.svg">
 </picture>
 
-### 18 · [affaan-m/ECC](https://github.com/affaan-m/ECC) — ★ 226,806
+### 18 · [affaan-m/ECC](https://github.com/affaan-m/ECC) — ★ 226,807
 
 > The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond. · `JavaScript`
 
@@ -175,7 +175,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="TheAlgorithms/Python daily new stars as a candlestick chart" src="TheAlgorithms-Python/kline-light.svg">
 </picture>
 
-### 20 · [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) — ★ 210,640
+### 20 · [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) — ★ 210,641
 
 > The agent that grows with you · `Python`
 

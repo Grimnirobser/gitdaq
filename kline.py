@@ -84,27 +84,6 @@ def add_boll(rows, n=20, k=2):
         r["bl"] = round(max(0.0, m - k * sd), 2)  # 计数不为负，下轨贴地即可
 
 
-def add_rsi(rows, n, key):
-    """Wilder RSI(n)。全涨→100，全跌→0。"""
-    ag = al = 0.0
-    for i, r in enumerate(rows):
-        if i == 0:
-            r[key] = None
-            continue
-        ch = r["c"] - rows[i - 1]["c"]
-        g, l = max(ch, 0), max(-ch, 0)
-        if i <= n:
-            ag += g
-            al += l
-            if i < n:
-                r[key] = None
-                continue
-            ag /= n
-            al /= n
-        else:
-            ag = (ag * (n - 1) + g) / n
-            al = (al * (n - 1) + l) / n
-        r[key] = round(100 - 100 / (1 + ag / al), 1) if al else 100.0
 
 
 def github_daily(user):
@@ -297,10 +276,7 @@ def selftest():
         {"2026-01-05": 120, "2026-01-07": 30}, "2026-01-05")
     assert [(r["o"], r["c"], r["v"]) for r in lr] == [
         (0, 5, 120), (5, 9, 0), (9, 2, 30)]
-    # 指标：单调上涨 RSI=100；常数序列 BOLL 三轨重合
-    up_rows = [{"c": i, "v": 1} for i in range(1, 30)]
-    add_rsi(up_rows, 6, "rsi6")
-    assert up_rows[-1]["rsi6"] == 100.0 and up_rows[3]["rsi6"] is None
+    # 指标：常数序列 BOLL 三轨重合
     flat = [{"c": 7, "v": 1} for _ in range(25)]
     add_boll(flat)
     assert (flat[-1]["bu"], flat[-1]["bm"], flat[-1]["bl"]) == (7, 7, 7)
@@ -316,7 +292,7 @@ def selftest():
     for theme in ("light", "dark"):
         svg = render_svg(fake, theme, T)
         assert svg.startswith("<svg") and svg.endswith("</svg>")
-        assert svg.count("<rect") >= 60 and svg.count("<polyline") >= 6
+        assert svg.count("<rect") >= 60 and svg.count("<polyline") >= 5
     print("selftest OK")
 
 
@@ -381,14 +357,13 @@ def _nice_ticks(lo, hi, n):
 
 
 def render_svg(rows, theme, t):
-    """雪球风格三窗格：价格(BOLL+蜡烛) / RSI(6,12,24) / 成交量(MA5/MA10)。"""
+    """雪球风格双窗格：价格(BOLL+蜡烛) / 成交量(MA5/MA10)。"""
     p = SVG_PAL[theme]
-    W, H = 840, 552
+    W, H = 840, 496
     padL = padR = 10
     plotW = W - padL - padR
-    pT, pB = 66, 318          # 价格窗格
-    rT, rB = 344, 420         # RSI 窗格
-    vT, vB = 446, 522         # 成交量窗格
+    pT, pB = 66, 356          # 价格窗格
+    vT, vB = 384, 470         # 成交量窗格
     n = len(rows)
     step = plotW / n
     cw = max(1.5, min(24, step * 0.55))
@@ -402,7 +377,6 @@ def render_svg(rows, theme, t):
     lo = max(0, lo - vpad)
     hi += vpad
     py = lambda v: pB - (v - lo) / (hi - lo) * (pB - pT)
-    ry = lambda v: rB - v / 100 * (rB - rT)
     maxv = max(r["v"] for r in rows) or 1
     vy = lambda v: vB - v / maxv * (vB - vT - 4)
 
@@ -463,7 +437,7 @@ def render_svg(rows, theme, t):
     text(padL + 4, 38, t["meta"], p["muted"])
 
     # ---- 窗格边框 + 月份竖网格线 + 底部时间轴 ----
-    for top, bot in ((pT, pB), (rT, rB), (vT, vB)):
+    for top, bot in ((pT, pB), (vT, vB)):
         A(f'<rect x="{padL}" y="{top}" width="{plotW}" height="{bot - top}" '
           f'fill="none" stroke="{p["grid"]}"/>')
     marks, prev_m = [], None
@@ -477,7 +451,7 @@ def render_svg(rows, theme, t):
         for i, m in marks:
             if i > 0:
                 bx = x(i) - step / 2
-                for top, bot in ((pT, pB), (rT, rB), (vT, vB)):
+                for top, bot in ((pT, pB), (vT, vB)):
                     line(bx, top, bx, bot, p["grid"])
             tx = min(max(x(i), padL + 28), padL + plotW - 28)
             if tx - lx >= 64:
@@ -530,20 +504,8 @@ def render_svg(rows, theme, t):
         text(x(i) + (-11 if right else 11), ty, _fmt(v), p["ink2"],
              anchor="end" if right else "start")
 
-    # ---- RSI 窗格 ----
-    hdr(336, [("RSI(6,12,24)", p["ink2"]),
-              (f"RSI6:{val(last.get('rsi6'))}", p["l1"]),
-              (f"RSI12:{val(last.get('rsi12'))}", p["l2"]),
-              (f"RSI24:{val(last.get('rsi24'))}", p["l3"])])
-    for g in (20, 50, 80):
-        line(padL, ry(g), padL + plotW, ry(g), p["grid"], dash="3 3")
-        if g >= 50:
-            text(padL + 4, ry(g) - 3, f"{g}.00", p["muted"], 10)
-    for key, col in (("rsi6", p["l1"]), ("rsi12", p["l2"]), ("rsi24", p["l3"])):
-        poly(rows, key, ry, col)
-
     # ---- 成交量窗格 ----
-    hdr(438, [(f'{t["vol_word"]} {_fmt(last["v"])} {t["vol_unit"]}', p["ink2"]),
+    hdr(376, [(f'{t["vol_word"]} {_fmt(last["v"])} {t["vol_unit"]}', p["ink2"]),
               (f"MA5:{val(last.get('vma5'))}", p["l1"]),
               (f"MA10:{val(last.get('vma10'))}", p["l2"])])
     text(padL + 4, vT + 11, _fmt(maxv), p["muted"], 10)
@@ -566,8 +528,6 @@ def render_svg(rows, theme, t):
 
 def add_indicators(rows):
     add_boll(rows)
-    for nn in (6, 12, 24):
-        add_rsi(rows, nn, f"rsi{nn}")
     add_ma(rows, 5, "vma5", "v")
     add_ma(rows, 10, "vma10", "v")
 

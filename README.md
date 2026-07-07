@@ -147,8 +147,8 @@ reconstituted and re-charted daily by
 [showcase/](showcase/README.md).
 
 <!-- GDQ20:START -->
-<!-- GDQ20:v6533153 -->
-**^GDQ20 &nbsp;6,533,153** ▲ +168 (+0.00%) · close 2026-07-07 · [constituent detail →](showcase/README.md)
+<!-- GDQ20:v6533154 -->
+**^GDQ20 &nbsp;6,533,154** ▲ +1 (+0.00%) · close 2026-07-07 · [constituent detail →](showcase/README.md)
 
 <table>
 <tr>
@@ -160,7 +160,7 @@ reconstituted and re-charted daily by
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>02 · <a href="https://github.com/sindresorhus/awesome">sindresorhus/awesome</a></b> — ★ 482,608<br>
+<b>02 · <a href="https://github.com/sindresorhus/awesome">sindresorhus/awesome</a></b> — ★ 482,609<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/sindresorhus-awesome/kline-dark.svg">
   <img alt="sindresorhus/awesome daily new stars as a candlestick chart" src="showcase/sindresorhus-awesome/kline-light.svg">

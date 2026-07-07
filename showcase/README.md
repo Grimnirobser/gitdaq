@@ -2,7 +2,7 @@
 
 What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-starred repositories on the exchange, each rendered as a candlestick chart by [gitdaq](../README.md). Reconstituted daily by [`showcase.yml`](../.github/workflows/showcase.yml).
 
-**^GDQ20 6,533,153** (sum of constituents' stars) · close 2026-07-07 · candles = **new stars per day** (close vs. yesterday's intake) · volume = **new forks per day** · red = hype accelerating, green = cooling (A-share convention).
+**^GDQ20 6,533,154** (sum of constituents' stars) · close 2026-07-07 · candles = **new stars per day** (close vs. yesterday's intake) · volume = **new forks per day** · red = hype accelerating, green = cooling (A-share convention).
 
 ### 01 · [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) — ★ 523,131
 
@@ -13,7 +13,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="codecrafters-io/build-your-own-x daily new stars as a candlestick chart" src="codecrafters-io-build-your-own-x/kline-light.svg">
 </picture>
 
-### 02 · [sindresorhus/awesome](https://github.com/sindresorhus/awesome) — ★ 482,608
+### 02 · [sindresorhus/awesome](https://github.com/sindresorhus/awesome) — ★ 482,609
 
 > 😎 Awesome lists about all kinds of interesting topics
 

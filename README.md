@@ -130,6 +130,12 @@ Zero dependencies: Python 3 stdlib only; SVG/HTML are self-contained.
 (`--github` needs an authenticated [GitHub CLI](https://cli.github.com/) when
 run locally; inside Actions the runner's `gh` + workflow token are used.)
 
+## The GITDAQ:TOP20 board
+
+The 20 most-starred repositories on GitHub, each charted by this very tool
+and refreshed daily by CI: **[showcase/](showcase/README.md)** — freeCodeCamp,
+react, linux and friends, traded like stocks.
+
 ---
 
 ## 中文速览
@@ -143,6 +149,8 @@ run locally; inside Actions the runner's `gh` + workflow token are used.)
 `<picture>` 标签即可，`lang: zh` 可切中文图表文案。也可**按仓库维度**出图：workflow 放进
 任意仓库并传 `repo: ${{ github.repository }}`（蜡烛=默认分支全体作者每日 commit、
 量柱=变更行数）。本地模式（交互 HTML、仓库文件修改K线、带真实影线）见上节命令。
+
+另有 **[showcase/](showcase/README.md)**：GitHub star 数前 20 仓库的 K 线行情板，CI 每日刷新。
 
 ## License
 

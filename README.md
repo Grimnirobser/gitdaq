@@ -56,11 +56,24 @@ contribution calendar by this very action.*
 
 3. Run the workflow once from the Actions tab (or wait for the cron) — done.
 
+### Chart a repository instead
+
+Put the same workflow in **any repo** and pass `repo:` — the chart then shows
+that repository's pulse (candles = daily commits by everyone on the default
+branch, volume = lines changed), perfect for a project README:
+
+```yaml
+- uses: Grimnirobser/gitdaq@v1
+  with:
+    repo: ${{ github.repository }}
+```
+
 ### Action inputs
 
 | Input | Default | Meaning |
 |---|---|---|
 | `user` | repo owner | GitHub username to chart |
+| `repo` | — | Chart a **repository** instead (`OWNER/NAME`): candles = daily commits on the default branch (all authors), volume = lines changed. Overrides `user`/`metric` |
 | `github_token` | `github.token` | Default token sees **public** contributions; pass a PAT with `read:user` to include private counts |
 | `metric` | `contributions` | `contributions`: candles = daily total contributions. `commits`: candles = daily **commits**, volume = contributions. `lines`: candles = contributions, volume = **lines of code changed** (adds + deletes on default branches) |
 | `days` | `60` | Recent active days to plot (`0` = entire history) |
@@ -106,10 +119,11 @@ open = yesterday's total (the window value at midnight), close = today's
 total, high/low = the window's intraday extremes.
 
 ```bash
-python3 kline.py /path/to/repo --open          # any local git repo → HTML
-python3 kline.py --github <user> --open        # your whole GitHub account → HTML
-python3 kline.py --github <user> --svg out/    # the profile SVGs, locally
-python3 kline.py --selftest                    # built-in checks
+python3 kline.py /path/to/repo --open             # any local git repo → HTML
+python3 kline.py --github <user> --open           # your whole GitHub account → HTML
+python3 kline.py --github-repo owner/name --open  # a GitHub repo's pulse → HTML
+python3 kline.py --github <user> --svg out/       # the profile SVGs, locally
+python3 kline.py --selftest                       # built-in checks
 ```
 
 Zero dependencies: Python 3 stdlib only; SVG/HTML are self-contained.
@@ -126,8 +140,9 @@ run locally; inside Actions the runner's `gh` + workflow token are used.)
 贡献日历只有日粒度，因此主页蜡烛无影线——宁缺毋滥，不编造数据。
 
 接入方法：在你的 profile 仓库（`用户名/用户名`）里按上面第 1、2 步添加 workflow 和
-`<picture>` 标签即可，`lang: zh` 可切中文图表文案。本地模式（交互 HTML、仓库文件修改
-K线、带真实影线）见上节命令。
+`<picture>` 标签即可，`lang: zh` 可切中文图表文案。也可**按仓库维度**出图：workflow 放进
+任意仓库并传 `repo: ${{ github.repository }}`（蜡烛=默认分支全体作者每日 commit、
+量柱=变更行数）。本地模式（交互 HTML、仓库文件修改K线、带真实影线）见上节命令。
 
 ## License
 

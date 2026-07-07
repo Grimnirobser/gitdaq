@@ -236,6 +236,64 @@ def github_line_daily(user, back_to):
     return lines, start.isoformat()
 
 
+def github_repo_daily(full, need_days):
+    """仓库维度：默认分支全体作者的每日 commit 数与变更行数。
+
+    从最新分页往回抓，凑够 need_days 个活跃日即停（0=尽量全量），上限 100 页。
+    返回 (每日commit数, 每日行数, 覆盖起始日)。"""
+    def gh(*a):
+        return subprocess.run(["gh", *a], capture_output=True, text=True,
+                              check=True).stdout
+    owner, name = full.split("/", 1)
+    q = ("query($owner:String!,$name:String!,$cursor:String){"
+         "repository(owner:$owner,name:$name){defaultBranchRef{target{"
+         "... on Commit{history(first:100,after:$cursor){"
+         "pageInfo{hasNextPage endCursor}"
+         "nodes{committedDate additions deletions}}}}}}}")
+    cmap, lmap = {}, {}
+    cursor, more = None, False
+    for _ in range(100):  # ponytail: 最多扫 1 万个 commit，巨型仓库画不到更早就截断
+        argv = ["api", "graphql", "-f", f"query={q}",
+                "-f", f"owner={owner}", "-f", f"name={name}"]
+        if cursor:
+            argv += ["-f", f"cursor={cursor}"]
+        out = json.loads(gh(*argv))
+        ref = (out.get("data") or {}).get("repository") or {}
+        tgt = (ref.get("defaultBranchRef") or {}).get("target") or {}
+        hist = tgt.get("history")
+        if not hist:
+            break
+        for nd in hist["nodes"]:
+            ds = nd["committedDate"][:10]
+            cmap[ds] = cmap.get(ds, 0) + 1
+            lmap[ds] = (lmap.get(ds, 0)
+                        + (nd["additions"] or 0) + (nd["deletions"] or 0))
+        more = hist["pageInfo"]["hasNextPage"]
+        if not more or (need_days and len(cmap) > need_days):
+            break
+        cursor = hist["pageInfo"]["endCursor"]
+    if not cmap:
+        return {}, {}, None
+    days = sorted(cmap)
+    # 提前停止时最老一天可能只覆盖了半天 → 丢弃；自然翻完则完整保留
+    cov = days[0] if not more or len(days) == 1 else days[1]
+    return cmap, lmap, cov
+
+
+def gh_repo_rows(cmap, lmap, cov_start):
+    """蜡烛 = 仓库每日 commit 数，量柱 = 当日变更行数。"""
+    rows = []
+    for ds in sorted(cmap):
+        if ds < cov_start:
+            continue
+        c = cmap[ds]
+        prev = (date.fromisoformat(ds) - timedelta(days=1)).isoformat()
+        o = cmap.get(prev, 0)
+        rows.append({"d": ds, "o": o, "h": max(o, c), "l": min(o, c),
+                     "c": c, "v": lmap.get(ds, 0)})
+    return rows
+
+
 def contrib_lines_rows(cal, lines, cov_start):
     """蜡烛 = 每日总贡献，量柱 = 当日代码变更行数。"""
     counts = dict(cal)
@@ -271,6 +329,10 @@ def selftest():
                      {"2026-01-05": 3, "2026-01-06": 7}, "2026-01-05")
     assert [(r["o"], r["h"], r["l"], r["c"], r["v"]) for r in cr] == [
         (0, 3, 0, 3, 5), (3, 7, 3, 7, 9), (7, 7, 0, 0, 2)]
+    rr = gh_repo_rows({"2026-01-06": 4, "2026-01-07": 1},
+                      {"2026-01-06": 500}, "2026-01-06")
+    assert [(r["d"], r["o"], r["h"], r["l"], r["c"], r["v"]) for r in rr] == [
+        ("2026-01-06", 0, 4, 0, 4, 500), ("2026-01-07", 4, 4, 1, 1, 0)]
     lr = contrib_lines_rows(
         [("2026-01-05", 5), ("2026-01-06", 9), ("2026-01-07", 2)],
         {"2026-01-05": 120, "2026-01-07": 30}, "2026-01-05")
@@ -314,23 +376,28 @@ SVG_STR = {
         tag_repo="daily · file changes",
         tag_commits="daily · commits, volume = contributions",
         tag_lines="daily · contributions, volume = lines changed",
+        tag_ghrepo="daily · commits, volume = lines changed",
         up="rise", down="fall", vol_word="VOL",
         vol_github="contrib", vol_repo="commits", vol_commits="contrib",
-        vol_lines="lines",
+        vol_lines="lines", vol_ghrepo="lines",
         meta_github="last {m} active days · {total} contributions since {first} · updated {today}",
         meta_repo="last {m} active days · {total} file changes since {first} · updated {today}",
         meta_commits="last {m} active days · {wc} commits · {wv} contributions · updated {today}",
-        meta_lines="last {m} active days · {wc} contributions · {wv} lines changed · updated {today}"),
+        meta_lines="last {m} active days · {wc} contributions · {wv} lines changed · updated {today}",
+        meta_ghrepo="last {m} active days · {wc} commits · {wv} lines changed · updated {today}"),
     "zh": dict(
         tag_github="日K · GitHub 贡献", tag_repo="日K · 文件修改事项",
         tag_commits="日K · Commit（量柱=总贡献）",
         tag_lines="日K · 贡献（量柱=代码行数）",
+        tag_ghrepo="日K · Commit（量柱=代码行数）",
         up="涨", down="跌", vol_word="成交",
         vol_github="贡献", vol_repo="提交", vol_commits="贡献", vol_lines="行",
+        vol_ghrepo="行",
         meta_github="近 {m} 个活跃日 · 自 {first} 累计贡献 {total} 次 · 更新于 {today}",
         meta_repo="近 {m} 个活跃日 · 自 {first} 累计修改 {total} 项 · 更新于 {today}",
         meta_commits="近 {m} 个活跃日 · commit {wc} 次 · 贡献 {wv} 次 · 更新于 {today}",
-        meta_lines="近 {m} 个活跃日 · 贡献 {wc} 次 · 变更 {wv} 行 · 更新于 {today}"),
+        meta_lines="近 {m} 个活跃日 · 贡献 {wc} 次 · 变更 {wv} 行 · 更新于 {today}",
+        meta_ghrepo="近 {m} 个活跃日 · commit {wc} 次 · 变更 {wv} 行 · 更新于 {today}"),
 }
 
 
@@ -557,8 +624,12 @@ def write_svgs(rows, outdir, kind, title, lang, days):
 def main():
     ap = argparse.ArgumentParser(description="git/GitHub 每日活动量 → 股票日K线 HTML")
     ap.add_argument("repo", nargs="?", default=".", help="git 仓库路径（默认当前目录）")
-    ap.add_argument("--github", metavar="USER",
-                    help="改用 GitHub 贡献日历（个人主页同款数据），需已登录 gh CLI")
+    g = ap.add_mutually_exclusive_group()
+    g.add_argument("--github", metavar="USER",
+                   help="用户维度：GitHub 贡献日历（个人主页同款数据），需已登录 gh CLI")
+    g.add_argument("--github-repo", metavar="OWNER/NAME",
+                   help="仓库维度：该仓库默认分支的每日 commit 数（蜡烛）"
+                        "与变更行数（量柱）")
     ap.add_argument("--metric", choices=("contributions", "commits", "lines"),
                     default="contributions",
                     help="--github 模式指标：commits=蜡烛为每日commit数、量柱为总贡献；"
@@ -578,7 +649,30 @@ def main():
         selftest()
         return
 
-    if args.github:
+    if args.github_repo:
+        full = args.github_repo
+        if "/" not in full:
+            sys.exit("--github-repo 需要 OWNER/NAME 形式")
+        try:
+            cmap, lmap, cov = github_repo_daily(
+                full, args.days + 30 if args.svg and args.days > 0 else 0)
+        except FileNotFoundError:
+            sys.exit("需要 GitHub CLI：brew install gh && gh auth login")
+        except subprocess.CalledProcessError as e:
+            sys.exit(f"gh 失败: {e.stderr.strip()}")
+        if not cmap:
+            sys.exit("仓库不存在、无权限或没有可统计的提交")
+        rows = gh_repo_rows(cmap, lmap, cov)
+        kind, title = "ghrepo", full
+        tag = "日K · Commit（量柱=代码行数）"
+        volunit, vollabel = "行", "变更行数"
+        explain = ("收盘 = 当日 commit 数 · 开盘 = 昨日 commit 数 · "
+                   "量柱 = 当日代码变更行数（默认分支全体作者）· 无提交日休市")
+        meta = (f"{len(rows)} 个活跃日 · commit {sum(r['c'] for r in rows)} 次 · "
+                f"变更 {sum(r['v'] for r in rows)} 行 · "
+                f"{rows[0]['d']} ~ {rows[-1]['d']}")
+        name = f"{full.replace('/', '-')}-kline.html"
+    elif args.github:
         try:
             cal = github_daily(args.github)
             if args.metric in ("commits", "lines"):

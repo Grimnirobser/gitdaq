@@ -11,6 +11,12 @@ inputs:
   user:
     description: "GitHub username to chart (defaults to the repository owner)"
     default: ${{ github.repository_owner }}
+  repo:
+    description: >-
+      Chart a repository instead of a user (OWNER/NAME). Candles = daily
+      commits on the default branch (all authors), volume = lines changed.
+      When set, `user` and `metric` are ignored.
+    default: ""
   github_token:
     description: >-
       Token used for the GraphQL contributions query. The default workflow
@@ -40,9 +46,17 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.github_token }}
       run: |
-        python3 "${{ github.action_path }}/kline.py" \
-          --github "${{ inputs.user }}" \
-          --metric "${{ inputs.metric }}" \
-          --svg "${{ inputs.output_dir }}" \
-          --days "${{ inputs.days }}" \
-          --lang "${{ inputs.lang }}"
+        if [ -n "${{ inputs.repo }}" ]; then
+          python3 "${{ github.action_path }}/kline.py" \
+            --github-repo "${{ inputs.repo }}" \
+            --svg "${{ inputs.output_dir }}" \
+            --days "${{ inputs.days }}" \
+            --lang "${{ inputs.lang }}"
+        else
+          python3 "${{ github.action_path }}/kline.py" \
+            --github "${{ inputs.user }}" \
+            --metric "${{ inputs.metric }}" \
+            --svg "${{ inputs.output_dir }}" \
+            --days "${{ inputs.days }}" \
+            --lang "${{ inputs.lang }}"
+        fi

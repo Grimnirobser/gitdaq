@@ -19,8 +19,9 @@ inputs:
     default: ${{ github.token }}
   metric:
     description: >-
-      contributions (candles = daily total contributions) or commits
-      (candles = daily commits, volume bars = total contributions)
+      contributions (candles = daily total contributions) · commits
+      (candles = daily commits, volume = total contributions) · lines
+      (candles = daily contributions, volume = lines of code changed)
     default: "contributions"
   days:
     description: "Number of recent active days to plot (0 = all)"

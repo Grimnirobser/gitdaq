@@ -155,6 +155,85 @@ def commit_rows(cal, commits, cov_start):
     return rows
 
 
+def github_line_daily(user, back_to):
+    """每日代码变更行数：用户名下 commit 的 additions+deletions（默认分支）。
+
+    先按季度切片找出窗口内提交过的仓库，再逐仓库分页扫 history。
+    返回 ({iso日期: 行数}, 覆盖起始日)。"""
+    def gh(*a):
+        return subprocess.run(["gh", *a], capture_output=True, text=True,
+                              check=True).stdout
+    qr = ("query($login:String!,$from:DateTime!,$to:DateTime!){"
+          "user(login:$login){contributionsCollection(from:$from,to:$to){"
+          "commitContributionsByRepository(maxRepositories:100){"
+          "repository{nameWithOwner}}}}}")
+    repos, start = set(), None
+    end = date.today()
+    cap = 40  # ponytail: 与 commit 模式相同的 ~10 年回溯上限
+    while cap and end >= back_to:
+        begin = max(end - timedelta(days=91), back_to)
+        out = json.loads(gh("api", "graphql", "-f", f"query={qr}",
+                            "-f", f"login={user}",
+                            "-f", f"from={begin.isoformat()}T00:00:00Z",
+                            "-f", f"to={end.isoformat()}T23:59:59Z"))
+        col = out["data"]["user"]["contributionsCollection"]
+        for r in col["commitContributionsByRepository"]:
+            repos.add(r["repository"]["nameWithOwner"])
+        start = begin
+        end = begin - timedelta(days=1)
+        cap -= 1
+    start = start or end
+    uid = json.loads(gh("api", f"users/{user}"))["node_id"]
+    qh = ("query($owner:String!,$name:String!,$uid:ID!,"
+          "$since:GitTimestamp!,$cursor:String){"
+          "repository(owner:$owner,name:$name){defaultBranchRef{target{"
+          "... on Commit{history(author:{id:$uid},since:$since,"
+          "first:100,after:$cursor){pageInfo{hasNextPage endCursor}"
+          "nodes{committedDate additions deletions}}}}}}}")
+    lines = {}
+    for full in sorted(repos):
+        owner, name = full.split("/", 1)
+        cursor = None
+        for _ in range(10):  # ponytail: 每仓库窗口内最多扫 1000 个 commit
+            argv = ["api", "graphql", "-f", f"query={qh}",
+                    "-f", f"owner={owner}", "-f", f"name={name}",
+                    "-f", f"uid={uid}",
+                    "-f", f"since={start.isoformat()}T00:00:00Z"]
+            if cursor:
+                argv += ["-f", f"cursor={cursor}"]
+            try:
+                out = json.loads(gh(*argv))
+            except subprocess.CalledProcessError:
+                break  # 仓库被删/无权限：跳过，不让整次生成失败
+            ref = (out.get("data") or {}).get("repository") or {}
+            tgt = (ref.get("defaultBranchRef") or {}).get("target") or {}
+            hist = tgt.get("history")
+            if not hist:
+                break
+            for nd in hist["nodes"]:
+                ds = nd["committedDate"][:10]
+                lines[ds] = (lines.get(ds, 0)
+                             + (nd["additions"] or 0) + (nd["deletions"] or 0))
+            if not hist["pageInfo"]["hasNextPage"]:
+                break
+            cursor = hist["pageInfo"]["endCursor"]
+    return lines, start.isoformat()
+
+
+def contrib_lines_rows(cal, lines, cov_start):
+    """蜡烛 = 每日总贡献，量柱 = 当日代码变更行数。"""
+    counts = dict(cal)
+    rows = []
+    for ds, c in cal:
+        if c <= 0 or ds < cov_start:
+            continue
+        prev = counts.get(
+            (date.fromisoformat(ds) - timedelta(days=1)).isoformat(), 0)
+        rows.append({"d": ds, "o": prev, "h": max(prev, c),
+                     "l": min(prev, c), "c": c, "v": lines.get(ds, 0)})
+    return rows
+
+
 def selftest():
     ts = lambda d, h: datetime(2026, 1, d, h).timestamp()
     commits = [(ts(5, 10), 10), (ts(6, 1), 4), (ts(9, 12), 3)]
@@ -176,6 +255,14 @@ def selftest():
                      {"2026-01-05": 3, "2026-01-06": 7}, "2026-01-05")
     assert [(r["o"], r["h"], r["l"], r["c"], r["v"]) for r in cr] == [
         (0, 3, 0, 3, 5), (3, 7, 3, 7, 9), (7, 7, 0, 0, 2)]
+    lr = contrib_lines_rows(
+        [("2026-01-05", 5), ("2026-01-06", 9), ("2026-01-07", 2)],
+        {"2026-01-05": 120, "2026-01-07": 30}, "2026-01-05")
+    assert [(r["o"], r["c"], r["v"]) for r in lr] == [
+        (0, 5, 120), (5, 9, 0), (9, 2, 30)]
+    zero_v = [{"d": "2026-03-01", "o": 0, "h": 2, "l": 0, "c": 2, "v": 0,
+               "ma5": None, "ma10": None}]
+    assert "<svg" in render_svg(zero_v, "light", "t", "g", "m", "u", "d", "x")
     fake = [{"d": f"2026-02-{i:02d}", "o": i, "h": i + 2, "l": max(0, i - 1),
              "c": i + 1, "v": i + 1} for i in range(1, 13)]
     add_ma(fake, 5, "ma5")
@@ -203,19 +290,24 @@ SVG_STR = {
         tag_github="daily · GitHub contributions",
         tag_repo="daily · file changes",
         tag_commits="daily · commits, volume = contributions",
+        tag_lines="daily · contributions, volume = lines changed",
         up="rise", down="fall",
         vol_github="contrib", vol_repo="commits", vol_commits="contrib",
+        vol_lines="lines",
         meta_github="last {m} active days · {total} contributions since {first} · updated {today}",
         meta_repo="last {m} active days · {total} file changes since {first} · updated {today}",
-        meta_commits="last {m} active days · {wc} commits · {wv} contributions · updated {today}"),
+        meta_commits="last {m} active days · {wc} commits · {wv} contributions · updated {today}",
+        meta_lines="last {m} active days · {wc} contributions · {wv} lines changed · updated {today}"),
     "zh": dict(
         tag_github="日K · GitHub 贡献", tag_repo="日K · 文件修改事项",
         tag_commits="日K · Commit（量柱=总贡献）",
+        tag_lines="日K · 贡献（量柱=代码行数）",
         up="涨", down="跌",
-        vol_github="贡献", vol_repo="提交", vol_commits="贡献",
+        vol_github="贡献", vol_repo="提交", vol_commits="贡献", vol_lines="行",
         meta_github="近 {m} 个活跃日 · 自 {first} 累计贡献 {total} 次 · 更新于 {today}",
         meta_repo="近 {m} 个活跃日 · 自 {first} 累计修改 {total} 项 · 更新于 {today}",
-        meta_commits="近 {m} 个活跃日 · commit {wc} 次 · 贡献 {wv} 次 · 更新于 {today}"),
+        meta_commits="近 {m} 个活跃日 · commit {wc} 次 · 贡献 {wv} 次 · 更新于 {today}",
+        meta_lines="近 {m} 个活跃日 · 贡献 {wc} 次 · 变更 {wv} 行 · 更新于 {today}"),
 }
 
 
@@ -269,7 +361,7 @@ def render_svg(rows, theme, title, tag, meta, up_lab, down_lab, vol_unit):
     hi += vpad
     py = lambda v: padT + priceH - (v - lo) / (hi - lo) * priceH
     v0 = padT + priceH + gap
-    maxv = max(r["v"] for r in rows)
+    maxv = max(r["v"] for r in rows) or 1  # 量柱可能全为 0（如无归属 commit）
     vy = lambda v: v0 + volH - v / maxv * (volH - 4)
 
     e = []
@@ -390,10 +482,10 @@ def main():
     ap.add_argument("repo", nargs="?", default=".", help="git 仓库路径（默认当前目录）")
     ap.add_argument("--github", metavar="USER",
                     help="改用 GitHub 贡献日历（个人主页同款数据），需已登录 gh CLI")
-    ap.add_argument("--metric", choices=("contributions", "commits"),
+    ap.add_argument("--metric", choices=("contributions", "commits", "lines"),
                     default="contributions",
-                    help="--github 模式指标：commits=蜡烛为每日commit数、"
-                         "量柱为当日总贡献（默认 contributions）")
+                    help="--github 模式指标：commits=蜡烛为每日commit数、量柱为总贡献；"
+                         "lines=蜡烛为每日贡献、量柱为代码变更行数（默认 contributions）")
     ap.add_argument("-o", "--out", help="输出 HTML 路径（默认 ./<名字>-kline.html）")
     ap.add_argument("--svg", metavar="DIR",
                     help="改为输出静态 SVG（kline-light.svg + kline-dark.svg），"
@@ -412,17 +504,22 @@ def main():
     if args.github:
         try:
             cal = github_daily(args.github)
-            if args.metric == "commits":
+            if args.metric in ("commits", "lines"):
                 acts = [d for d, c in cal if c > 0]
                 if not acts:
                     sys.exit("该账号没有任何贡献记录")
-                # SVG 只画最近 days 根蜡烛（+10 根 MA 预热），commit 数据只需抓到那里
+                # SVG 只画最近 days 根蜡烛（+10 根 MA 预热），深数据只需抓到那里
                 need = (acts[-(args.days + 10)]
                         if args.svg and 0 < args.days + 10 < len(acts)
                         else acts[0])
-                cmap, cov = github_commit_daily(
-                    args.github, date.fromisoformat(need))
-                rows = commit_rows(cal, cmap, cov)
+                if args.metric == "commits":
+                    cmap, cov = github_commit_daily(
+                        args.github, date.fromisoformat(need))
+                    rows = commit_rows(cal, cmap, cov)
+                else:
+                    lmap, cov = github_line_daily(
+                        args.github, date.fromisoformat(need))
+                    rows = contrib_lines_rows(cal, lmap, cov)
             else:
                 rows = daily_rows(cal)
         except FileNotFoundError:
@@ -433,14 +530,25 @@ def main():
             sys.exit("该账号没有任何贡献记录")
         title = args.github
         if args.metric == "commits":
-            kind, tag, volunit = "commits", "日K · Commit（量柱=总贡献）", "贡献"
+            kind, tag = "commits", "日K · Commit（量柱=总贡献）"
+            volunit, vollabel = "贡献", "贡献次数"
             explain = ("收盘 = 当日 commit 数 · 开盘 = 昨日 commit 数 · "
                        "量柱 = 当日总贡献（commit+PR+issue+review）· 无贡献日休市")
             meta = (f"{len(rows)} 个活跃日 · commit {sum(r['c'] for r in rows)} 次 · "
                     f"贡献 {sum(r['v'] for r in rows)} 次 · "
                     f"{rows[0]['d']} ~ {rows[-1]['d']}")
+        elif args.metric == "lines":
+            kind, tag = "lines", "日K · 贡献（量柱=代码行数）"
+            volunit, vollabel = "行", "变更行数"
+            explain = ("收盘 = 当日贡献数 · 开盘 = 昨日贡献数 · "
+                       "量柱 = 当日代码变更行数（默认分支 commit 的增+删）· "
+                       "无贡献日休市")
+            meta = (f"{len(rows)} 个活跃日 · 贡献 {sum(r['c'] for r in rows)} 次 · "
+                    f"变更 {sum(r['v'] for r in rows)} 行 · "
+                    f"{rows[0]['d']} ~ {rows[-1]['d']}")
         else:
-            kind, tag, volunit = "github", "日K · GitHub 贡献", "贡献"
+            kind, tag = "github", "日K · GitHub 贡献"
+            volunit, vollabel = "贡献", "贡献次数"
             explain = ("收盘 = 当日贡献数 · 开盘 = 昨日贡献数 · "
                        "贡献日历为日粒度，无影线 · 无贡献日休市")
             meta = (f"{len(rows)} 个活跃日 · 累计贡献 {sum(r['c'] for r in rows)} 次 · "
@@ -456,7 +564,8 @@ def main():
             sys.exit("仓库没有可统计的提交")
         rows = daily_ohlc(commits)
         kind = "repo"
-        title, tag, volunit = repo.name, "日K · 文件修改事项", "提交"
+        title, tag = repo.name, "日K · 文件修改事项"
+        volunit, vollabel = "提交", "提交次数"
         explain = ("收盘 = 当日修改事项数 · 开盘 = 昨日总量 · "
                    "高/低 = 24h 滚动窗口日内极值 · 无提交日休市")
         meta = (f"{len(rows)} 个活跃日 · 提交 {sum(v['v'] for v in rows)} 次 · "
@@ -477,6 +586,7 @@ def main():
            .replace("__TAG__", tag)
            .replace("__EXPLAIN__", explain)
            .replace("__VOLUNIT__", volunit)
+           .replace("__VOLLABEL__", vollabel)
            .replace("__META__", html.escape(meta))
            .replace("__DATA__", json.dumps(rows, ensure_ascii=False,
                                            separators=(",", ":"))))
@@ -625,6 +735,7 @@ if (new URLSearchParams(location.search).get("theme") === "dark")
   document.documentElement.classList.add("dark");
 const DATA = __DATA__;
 const VOLUNIT = "__VOLUNIT__";
+const VOLLABEL = "__VOLLABEL__";
 const NS = "http://www.w3.org/2000/svg";
 const svg = document.getElementById("chart");
 const fig = document.getElementById("fig");
@@ -684,7 +795,7 @@ function render() {
   lo = Math.max(0, lo - pad); hi += pad;
   const py = v => padT + priceH - (v - lo) / (hi - lo) * priceH;
   const v0 = padT + priceH + gap;
-  const maxV = Math.max(...view.map(r => r.v));
+  const maxV = Math.max(...view.map(r => r.v)) || 1;
   const vy = v => v0 + volH - v / maxV * (volH - 4);
 
   const wash = el("rect", { class: "wash", y: padT, width: Math.max(step, 2),
@@ -778,7 +889,7 @@ function setActive(i) {
   tip.appendChild(row("最高", fmt(r.h)));
   tip.appendChild(row("最低", fmt(r.l)));
   tip.appendChild(row("收盘（今量）", fmt(r.c)));
-  tip.appendChild(row(VOLUNIT + "次数", fmt(r.v)));
+  tip.appendChild(row(VOLLABEL, fmt(r.v)));
   const css = getComputedStyle(document.querySelector(".viz-root"));
   tip.appendChild(row("MA5", fmt(r.ma5), css.getPropertyValue("--ma5")));
   tip.appendChild(row("MA10", fmt(r.ma10), css.getPropertyValue("--ma10")));

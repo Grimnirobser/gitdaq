@@ -60,7 +60,7 @@ contribution calendar by this very action.*
 |---|---|---|
 | `user` | repo owner | GitHub username to chart |
 | `github_token` | `github.token` | Default token sees **public** contributions; pass a PAT with `read:user` to include private counts |
-| `metric` | `contributions` | `contributions`: candles = daily total contributions. `commits`: candles = daily **commits**, volume bars = total contributions |
+| `metric` | `contributions` | `contributions`: candles = daily total contributions. `commits`: candles = daily **commits**, volume = contributions. `lines`: candles = contributions, volume = **lines of code changed** (adds + deletes on default branches) |
 | `days` | `60` | Recent active days to plot (`0` = entire history) |
 | `lang` | `en` | Chart labels: `en` or `zh` |
 | `output_dir` | `kline` | Where `kline-light.svg` / `kline-dark.svg` are written |
@@ -88,6 +88,11 @@ With `metric: commits` the candles switch to **daily commits** (GitHub
 attribution rules: default-branch commits, linked author email) while the
 volume bars keep showing total contributions — commit price action on top,
 overall market activity below.
+
+With `metric: lines` the candles stay on contributions and the volume bars
+show **lines of code changed** per day (additions + deletions of your
+authored commits on each repo's default branch) — price action on top, how
+much code actually moved below. Same attribution rules as commits.
 
 ## Local analysis mode (interactive HTML)
 

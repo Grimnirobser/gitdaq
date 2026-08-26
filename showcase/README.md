@@ -2,9 +2,9 @@
 
 What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-starred repositories on the exchange, each rendered as a candlestick chart by [gitdaq](../README.md). Reconstituted daily by [`showcase.yml`](../.github/workflows/showcase.yml).
 
-**^GDQ20 6,752,147** (sum of constituents' stars) · close 2026-08-25 · candles = **new stars per day** (close vs. yesterday's intake) · volume = **new forks per day** · red = hype accelerating, green = cooling (A-share convention).
+**^GDQ20 6,757,637** (sum of constituents' stars) · close 2026-08-26 · candles = **new stars per day** (close vs. yesterday's intake) · volume = **new forks per day** · red = hype accelerating, green = cooling (A-share convention).
 
-### 01 · [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) — ★ 542,668
+### 01 · [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) — ★ 542,973
 
 > Master programming by recreating your favorite technologies from scratch. · `Markdown`
 
@@ -13,7 +13,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="codecrafters-io/build-your-own-x daily new stars as a candlestick chart" src="codecrafters-io-build-your-own-x/kline-light.svg">
 </picture>
 
-### 02 · [sindresorhus/awesome](https://github.com/sindresorhus/awesome) — ★ 499,646
+### 02 · [sindresorhus/awesome](https://github.com/sindresorhus/awesome) — ★ 499,954
 
 > 😎 Awesome lists about all kinds of interesting topics [NOTE: Pull requests are temporarily disabled until I have a chance to catch up with the existing ones]
 
@@ -22,7 +22,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="sindresorhus/awesome daily new stars as a candlestick chart" src="sindresorhus-awesome/kline-light.svg">
 </picture>
 
-### 03 · [public-apis/public-apis](https://github.com/public-apis/public-apis) — ★ 469,914
+### 03 · [public-apis/public-apis](https://github.com/public-apis/public-apis) — ★ 470,496
 
 > A collective list of free APIs · `Python`
 
@@ -31,7 +31,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="public-apis/public-apis daily new stars as a candlestick chart" src="public-apis-public-apis/kline-light.svg">
 </picture>
 
-### 04 · [freeCodeCamp/freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp) — ★ 454,552
+### 04 · [freeCodeCamp/freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp) — ★ 454,605
 
 > freeCodeCamp.org's open-source codebase and curriculum. Learn math, programming, and computer science for free. · `TypeScript`
 
@@ -40,7 +40,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="freeCodeCamp/freeCodeCamp daily new stars as a candlestick chart" src="freeCodeCamp-freeCodeCamp/kline-light.svg">
 </picture>
 
-### 05 · [EbookFoundation/free-programming-books](https://github.com/EbookFoundation/free-programming-books) — ★ 395,164
+### 05 · [EbookFoundation/free-programming-books](https://github.com/EbookFoundation/free-programming-books) — ★ 395,226
 
 > :books: Freely available programming books · `Python`
 
@@ -49,7 +49,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="EbookFoundation/free-programming-books daily new stars as a candlestick chart" src="EbookFoundation-free-programming-books/kline-light.svg">
 </picture>
 
-### 06 · [openclaw/openclaw](https://github.com/openclaw/openclaw) — ★ 387,442
+### 06 · [openclaw/openclaw](https://github.com/openclaw/openclaw) — ★ 387,615
 
 > Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞  · `TypeScript`
 
@@ -58,7 +58,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="openclaw/openclaw daily new stars as a candlestick chart" src="openclaw-openclaw/kline-light.svg">
 </picture>
 
-### 07 · [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) — ★ 365,843
+### 07 · [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) — ★ 366,043
 
 > Learn how to design large-scale systems. Prep for the system design interview.  Includes Anki flashcards. · `Python`
 
@@ -67,7 +67,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="donnemartin/system-design-primer daily new stars as a candlestick chart" src="donnemartin-system-design-primer/kline-light.svg">
 </picture>
 
-### 08 · [nilbuild/developer-roadmap](https://github.com/nilbuild/developer-roadmap) — ★ 365,336
+### 08 · [nilbuild/developer-roadmap](https://github.com/nilbuild/developer-roadmap) — ★ 365,403
 
 > Interactive roadmaps, guides and other educational content to help developers grow in their careers. · `TypeScript`
 
@@ -76,7 +76,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="nilbuild/developer-roadmap daily new stars as a candlestick chart" src="nilbuild-developer-roadmap/kline-light.svg">
 </picture>
 
-### 09 · [jwasham/coding-interview-university](https://github.com/jwasham/coding-interview-university) — ★ 359,665
+### 09 · [jwasham/coding-interview-university](https://github.com/jwasham/coding-interview-university) — ★ 359,727
 
 > A complete computer science study plan to become a software engineer.
 
@@ -85,7 +85,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="jwasham/coding-interview-university daily new stars as a candlestick chart" src="jwasham-coding-interview-university/kline-light.svg">
 </picture>
 
-### 10 · [vinta/awesome-python](https://github.com/vinta/awesome-python) — ★ 315,890
+### 10 · [vinta/awesome-python](https://github.com/vinta/awesome-python) — ★ 316,080
 
 > The definitive list that answers "I want to do X in Python, which tool should I use?" · `Python`
 
@@ -94,7 +94,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="vinta/awesome-python daily new stars as a candlestick chart" src="vinta-awesome-python/kline-light.svg">
 </picture>
 
-### 11 · [awesome-selfhosted/awesome-selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted) — ★ 314,818
+### 11 · [awesome-selfhosted/awesome-selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted) — ★ 315,093
 
 > A list of Free Software network services and web applications which can be hosted on your own servers
 
@@ -103,7 +103,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="awesome-selfhosted/awesome-selfhosted daily new stars as a candlestick chart" src="awesome-selfhosted-awesome-selfhosted/kline-light.svg">
 </picture>
 
-### 12 · [practical-tutorials/project-based-learning](https://github.com/practical-tutorials/project-based-learning) — ★ 280,670
+### 12 · [practical-tutorials/project-based-learning](https://github.com/practical-tutorials/project-based-learning) — ★ 280,845
 
 > Curated list of project-based tutorials · `Python`
 
@@ -112,7 +112,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="practical-tutorials/project-based-learning daily new stars as a candlestick chart" src="practical-tutorials-project-based-learning/kline-light.svg">
 </picture>
 
-### 13 · [obra/superpowers](https://github.com/obra/superpowers) — ★ 277,148
+### 13 · [obra/superpowers](https://github.com/obra/superpowers) — ★ 277,608
 
 > An agentic skills framework &amp; software development methodology that works. · `Shell`
 
@@ -130,7 +130,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="996icu/996.ICU daily new stars as a candlestick chart" src="996icu-996.ICU/kline-light.svg">
 </picture>
 
-### 15 · [react/react](https://github.com/react/react) — ★ 247,857
+### 15 · [react/react](https://github.com/react/react) — ★ 247,904
 
 > The library for web and native user interfaces. · `JavaScript`
 
@@ -139,7 +139,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="react/react daily new stars as a candlestick chart" src="react-react/kline-light.svg">
 </picture>
 
-### 16 · [torvalds/linux](https://github.com/torvalds/linux) — ★ 244,249
+### 16 · [torvalds/linux](https://github.com/torvalds/linux) — ★ 244,408
 
 > Linux kernel source tree · `C`
 
@@ -148,7 +148,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="torvalds/linux daily new stars as a candlestick chart" src="torvalds-linux/kline-light.svg">
 </picture>
 
-### 17 · [affaan-m/ECC](https://github.com/affaan-m/ECC) — ★ 242,947
+### 17 · [affaan-m/ECC](https://github.com/affaan-m/ECC) — ★ 243,233
 
 > The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond. · `JavaScript`
 
@@ -157,7 +157,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="affaan-m/ECC daily new stars as a candlestick chart" src="affaan-m-ECC/kline-light.svg">
 </picture>
 
-### 18 · [trimstray/the-book-of-secret-knowledge](https://github.com/trimstray/the-book-of-secret-knowledge) — ★ 240,196
+### 18 · [trimstray/the-book-of-secret-knowledge](https://github.com/trimstray/the-book-of-secret-knowledge) — ★ 240,369
 
 > A collection of inspiring lists, manuals, cheatsheets, blogs, hacks, one-liners, cli/web tools and more.
 
@@ -166,7 +166,7 @@ What the NASDAQ-100 is to stocks, the **GITDAQ-20** is to GitHub: the 20 most-st
   <img alt="trimstray/the-book-of-secret-knowledge daily new stars as a candlestick chart" src="trimstray-the-book-of-secret-knowledge/kline-light.svg">
 </picture>
 
-### 19 · [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) — ★ 235,864
+### 19 · [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) — ★ 236,458
 
 > The agent that grows with you · `Python`
 

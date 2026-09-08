@@ -147,20 +147,20 @@ reconstituted and re-charted daily by
 [showcase/](showcase/README.md).
 
 <!-- GDQ20:START -->
-<!-- GDQ20:v6828558 -->
-**^GDQ20 &nbsp;6,828,558** ▲ +7,843 (+0.11%) · close 2026-09-07 · [constituent detail →](showcase/README.md)
+<!-- GDQ20:v6835144 -->
+**^GDQ20 &nbsp;6,835,144** ▲ +6,586 (+0.10%) · close 2026-09-08 · [constituent detail →](showcase/README.md)
 
 <table>
 <tr>
 <td valign="top" width="50%">
-<b>01 · <a href="https://github.com/codecrafters-io/build-your-own-x">codecrafters-io/build-your-own-x</a></b> — ★ 545,677<br>
+<b>01 · <a href="https://github.com/codecrafters-io/build-your-own-x">codecrafters-io/build-your-own-x</a></b> — ★ 545,898<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/codecrafters-io-build-your-own-x/kline-dark.svg">
   <img alt="codecrafters-io/build-your-own-x daily new stars as a candlestick chart" src="showcase/codecrafters-io-build-your-own-x/kline-light.svg">
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>02 · <a href="https://github.com/sindresorhus/awesome">sindresorhus/awesome</a></b> — ★ 503,746<br>
+<b>02 · <a href="https://github.com/sindresorhus/awesome">sindresorhus/awesome</a></b> — ★ 504,043<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/sindresorhus-awesome/kline-dark.svg">
   <img alt="sindresorhus/awesome daily new stars as a candlestick chart" src="showcase/sindresorhus-awesome/kline-light.svg">
@@ -169,14 +169,14 @@ reconstituted and re-charted daily by
 </tr>
 <tr>
 <td valign="top" width="50%">
-<b>03 · <a href="https://github.com/public-apis/public-apis">public-apis/public-apis</a></b> — ★ 476,625<br>
+<b>03 · <a href="https://github.com/public-apis/public-apis">public-apis/public-apis</a></b> — ★ 477,191<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/public-apis-public-apis/kline-dark.svg">
   <img alt="public-apis/public-apis daily new stars as a candlestick chart" src="showcase/public-apis-public-apis/kline-light.svg">
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>04 · <a href="https://github.com/freeCodeCamp/freeCodeCamp">freeCodeCamp/freeCodeCamp</a></b> — ★ 455,141<br>
+<b>04 · <a href="https://github.com/freeCodeCamp/freeCodeCamp">freeCodeCamp/freeCodeCamp</a></b> — ★ 455,195<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/freeCodeCamp-freeCodeCamp/kline-dark.svg">
   <img alt="freeCodeCamp/freeCodeCamp daily new stars as a candlestick chart" src="showcase/freeCodeCamp-freeCodeCamp/kline-light.svg">
@@ -185,14 +185,14 @@ reconstituted and re-charted daily by
 </tr>
 <tr>
 <td valign="top" width="50%">
-<b>05 · <a href="https://github.com/EbookFoundation/free-programming-books">EbookFoundation/free-programming-books</a></b> — ★ 396,150<br>
+<b>05 · <a href="https://github.com/EbookFoundation/free-programming-books">EbookFoundation/free-programming-books</a></b> — ★ 396,224<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/EbookFoundation-free-programming-books/kline-dark.svg">
   <img alt="EbookFoundation/free-programming-books daily new stars as a candlestick chart" src="showcase/EbookFoundation-free-programming-books/kline-light.svg">
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>06 · <a href="https://github.com/openclaw/openclaw">openclaw/openclaw</a></b> — ★ 389,071<br>
+<b>06 · <a href="https://github.com/openclaw/openclaw">openclaw/openclaw</a></b> — ★ 389,172<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/openclaw-openclaw/kline-dark.svg">
   <img alt="openclaw/openclaw daily new stars as a candlestick chart" src="showcase/openclaw-openclaw/kline-light.svg">
@@ -201,14 +201,14 @@ reconstituted and re-charted daily by
 </tr>
 <tr>
 <td valign="top" width="50%">
-<b>07 · <a href="https://github.com/donnemartin/system-design-primer">donnemartin/system-design-primer</a></b> — ★ 368,413<br>
+<b>07 · <a href="https://github.com/donnemartin/system-design-primer">donnemartin/system-design-primer</a></b> — ★ 368,641<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/donnemartin-system-design-primer/kline-dark.svg">
   <img alt="donnemartin/system-design-primer daily new stars as a candlestick chart" src="showcase/donnemartin-system-design-primer/kline-light.svg">
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>08 · <a href="https://github.com/nilbuild/developer-roadmap">nilbuild/developer-roadmap</a></b> — ★ 366,447<br>
+<b>08 · <a href="https://github.com/nilbuild/developer-roadmap">nilbuild/developer-roadmap</a></b> — ★ 366,548<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/nilbuild-developer-roadmap/kline-dark.svg">
   <img alt="nilbuild/developer-roadmap daily new stars as a candlestick chart" src="showcase/nilbuild-developer-roadmap/kline-light.svg">
@@ -217,14 +217,14 @@ reconstituted and re-charted daily by
 </tr>
 <tr>
 <td valign="top" width="50%">
-<b>09 · <a href="https://github.com/jwasham/coding-interview-university">jwasham/coding-interview-university</a></b> — ★ 360,468<br>
+<b>09 · <a href="https://github.com/jwasham/coding-interview-university">jwasham/coding-interview-university</a></b> — ★ 360,543<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/jwasham-coding-interview-university/kline-dark.svg">
   <img alt="jwasham/coding-interview-university daily new stars as a candlestick chart" src="showcase/jwasham-coding-interview-university/kline-light.svg">
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>10 · <a href="https://github.com/vinta/awesome-python">vinta/awesome-python</a></b> — ★ 318,915<br>
+<b>10 · <a href="https://github.com/vinta/awesome-python">vinta/awesome-python</a></b> — ★ 319,192<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/vinta-awesome-python/kline-dark.svg">
   <img alt="vinta/awesome-python daily new stars as a candlestick chart" src="showcase/vinta-awesome-python/kline-light.svg">
@@ -233,14 +233,14 @@ reconstituted and re-charted daily by
 </tr>
 <tr>
 <td valign="top" width="50%">
-<b>11 · <a href="https://github.com/awesome-selfhosted/awesome-selfhosted">awesome-selfhosted/awesome-selfhosted</a></b> — ★ 317,588<br>
+<b>11 · <a href="https://github.com/awesome-selfhosted/awesome-selfhosted">awesome-selfhosted/awesome-selfhosted</a></b> — ★ 317,822<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/awesome-selfhosted-awesome-selfhosted/kline-dark.svg">
   <img alt="awesome-selfhosted/awesome-selfhosted daily new stars as a candlestick chart" src="showcase/awesome-selfhosted-awesome-selfhosted/kline-light.svg">
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>12 · <a href="https://github.com/obra/superpowers">obra/superpowers</a></b> — ★ 282,514<br>
+<b>12 · <a href="https://github.com/obra/superpowers">obra/superpowers</a></b> — ★ 282,928<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/obra-superpowers/kline-dark.svg">
   <img alt="obra/superpowers daily new stars as a candlestick chart" src="showcase/obra-superpowers/kline-light.svg">
@@ -249,14 +249,14 @@ reconstituted and re-charted daily by
 </tr>
 <tr>
 <td valign="top" width="50%">
-<b>13 · <a href="https://github.com/practical-tutorials/project-based-learning">practical-tutorials/project-based-learning</a></b> — ★ 282,389<br>
+<b>13 · <a href="https://github.com/practical-tutorials/project-based-learning">practical-tutorials/project-based-learning</a></b> — ★ 282,526<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/practical-tutorials-project-based-learning/kline-dark.svg">
   <img alt="practical-tutorials/project-based-learning daily new stars as a candlestick chart" src="showcase/practical-tutorials-project-based-learning/kline-light.svg">
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>14 · <a href="https://github.com/996icu/996.ICU">996icu/996.ICU</a></b> — ★ 276,907<br>
+<b>14 · <a href="https://github.com/996icu/996.ICU">996icu/996.ICU</a></b> — ★ 276,927<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/996icu-996.ICU/kline-dark.svg">
   <img alt="996icu/996.ICU daily new stars as a candlestick chart" src="showcase/996icu-996.ICU/kline-light.svg">
@@ -265,14 +265,14 @@ reconstituted and re-charted daily by
 </tr>
 <tr>
 <td valign="top" width="50%">
-<b>15 · <a href="https://github.com/affaan-m/ECC">affaan-m/ECC</a></b> — ★ 251,799<br>
+<b>15 · <a href="https://github.com/affaan-m/ECC">affaan-m/ECC</a></b> — ★ 253,151<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/affaan-m-ECC/kline-dark.svg">
   <img alt="affaan-m/ECC daily new stars as a candlestick chart" src="showcase/affaan-m-ECC/kline-light.svg">
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>16 · <a href="https://github.com/react/react">react/react</a></b> — ★ 249,410<br>
+<b>16 · <a href="https://github.com/react/react">react/react</a></b> — ★ 249,646<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/react-react/kline-dark.svg">
   <img alt="react/react daily new stars as a candlestick chart" src="showcase/react-react/kline-light.svg">
@@ -281,14 +281,14 @@ reconstituted and re-charted daily by
 </tr>
 <tr>
 <td valign="top" width="50%">
-<b>17 · <a href="https://github.com/torvalds/linux">torvalds/linux</a></b> — ★ 247,099<br>
+<b>17 · <a href="https://github.com/torvalds/linux">torvalds/linux</a></b> — ★ 247,454<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/torvalds-linux/kline-dark.svg">
   <img alt="torvalds/linux daily new stars as a candlestick chart" src="showcase/torvalds-linux/kline-light.svg">
 </picture>
 </td>
 <td valign="top" width="50%">
-<b>18 · <a href="https://github.com/NousResearch/hermes-agent">NousResearch/hermes-agent</a></b> — ★ 242,683<br>
+<b>18 · <a href="https://github.com/NousResearch/hermes-agent">NousResearch/hermes-agent</a></b> — ★ 243,140<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/NousResearch-hermes-agent/kline-dark.svg">
   <img alt="NousResearch/hermes-agent daily new stars as a candlestick chart" src="showcase/NousResearch-hermes-agent/kline-light.svg">
@@ -297,7 +297,7 @@ reconstituted and re-charted daily by
 </tr>
 <tr>
 <td valign="top" width="50%">
-<b>19 · <a href="https://github.com/trimstray/the-book-of-secret-knowledge">trimstray/the-book-of-secret-knowledge</a></b> — ★ 242,427<br>
+<b>19 · <a href="https://github.com/trimstray/the-book-of-secret-knowledge">trimstray/the-book-of-secret-knowledge</a></b> — ★ 242,604<br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="showcase/trimstray-the-book-of-secret-knowledge/kline-dark.svg">
   <img alt="trimstray/the-book-of-secret-knowledge daily new stars as a candlestick chart" src="showcase/trimstray-the-book-of-secret-knowledge/kline-light.svg">
